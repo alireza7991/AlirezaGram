@@ -13,12 +13,12 @@ Item {
     property color downColor: "#3083cf"
     property color disableColor: "#424242"
     property string caption: "List Button"
-    property string tmpStr: ""
     property string lastText: "You have a new message!1234567891011121314151617181920"
     property string lastTime: Qt.formatDateTime(new Date(),"hh:mm")
     property int newMessage: 50
     property bool notifications: true
     property bool checked: false
+    property bool self: false
     property string senderName:  ""
 
     onCheckedChanged: {
@@ -107,7 +107,7 @@ Item {
             font.family: "Open Sans"
             font.pointSize: 9
             verticalAlignment: Text.AlignVCenter
-            text: root.self ? txtMSender.elidedText : txtMSender.elidedText+": "
+            text: root.self ? txtMSender.elidedText : ""
         }
 
         TextMetrics {

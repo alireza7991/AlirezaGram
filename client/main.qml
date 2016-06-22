@@ -232,14 +232,25 @@ ApplicationWindow {
             }
             color: "#ffffff"
 
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: parent.height/3
+                text: "List is empty"
+                font.family: "Open Sans"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.weight: Font.DemiBold
+                color: "#b0b0b0"
+                font.pointSize: 12
+                visible: (listModelChatList.count) ? false : true
+            }
+
             Flickable {
                 id: flickListChat
                 anchors.fill: parent
                 contentWidth: columnListChat.implicitWidth
                 contentHeight: columnListChat.implicitHeight
                 clip: true
-
-
 
                 contentY: verticalScrollListChat.contentY
 
@@ -270,6 +281,8 @@ ApplicationWindow {
 
                     ListModel {
                         id: listModelChatList
+
+//                        ListElement{ title: "test"; text:"test"; isSelf: false}
                     }
 
                     Column {
@@ -285,6 +298,7 @@ ApplicationWindow {
                                 lastText: text
                                 lastTime: (listModelMessages.count) ? listViewMessages.itemAt(0).pmTime : "00:00"
                                 newMessage: index+1
+                                self: isSelf
                                 bgPicColor: Qt.rgba(Math.random(250),Math.random(250),Math.random(250))
 
                                 onPressed: {
@@ -332,6 +346,7 @@ ApplicationWindow {
                 leftMargin: 0.5
             }
             height: 54.5
+            visible: (listModelMessages.count) ? true : false
 
             Rectangle {
                 // Border Left
@@ -411,6 +426,7 @@ ApplicationWindow {
                 leftMargin: 0.5
             }
             height: 46
+            visible: (listModelMessages.count) ? true : false
 
             Rectangle {
                 // Border Left
