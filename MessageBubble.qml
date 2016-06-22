@@ -3,14 +3,14 @@ import QtQuick 2.0
 Item {
     id: root
     width: (maxWidth > appWindow.width/3) ? appWindow.width/3 : maxWidth
-    height: txtMessageBubble.implicitHeight + 20
+    height: txtMessageBubble.implicitHeight + 30
 
     property string pmText: ""
-    property color selfColor:  "#d3edff" //"#a6ddff"
+    property color selfColor:  "#d3edff"
     property color otherColor: "#ffffff"
     property bool self: true
     property color bgColor: root.self ? root.selfColor : root.otherColor
-    property int maxWidth: (txtMessageBubble.implicitWidth < rectTime_Check.width-10 ) ? txtMessageBubble.implicitWidth + (rectTime_Check.width - txtMessageBubble.implicitWidth) + 10 : txtMessageBubble.implicitWidth + 30
+    property int maxWidth: (txtMessageBubble.implicitWidth < rectTime_Check.width-10 ) ? txtMessageBubble.implicitWidth + (rectTime_Check.width - txtMessageBubble.implicitWidth) + 15 : txtMessageBubble.implicitWidth + 30
     property string pmTime: Qt.formatDateTime(new Date(), "hh:mm")
 
     Rectangle {
@@ -56,10 +56,9 @@ Item {
         Rectangle {
             id: rectTime_Check
             anchors {
-                left: if(self) parent.left
-                right: if(!self) parent.right
+                left: if(!self) parent.left
+                right: if(self) parent.right
                 bottom: parent.bottom
-                bottomMargin: -10
             }
             width: rowState.implicitWidth+10
             height: txtMessageTime.implicitHeight

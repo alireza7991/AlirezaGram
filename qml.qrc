@@ -10,5 +10,7 @@
         <file>EditPlain.qml</file>
         <file>MScrollBar.qml</file>
         <file>WebCamButton.qml</file>
+        <file>EmojiButton.qml</file>
+        <file>SFaceButton.qml</file>
     </qresource>
 </RCC>

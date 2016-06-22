@@ -442,8 +442,8 @@ ApplicationWindow {
                     bottom: parent.bottom
                     topMargin: 1
                 }
-                width: 60
-                text: "Send"
+                width: 50
+                itemFocus: editMessageBox
 
                 onClicked: {
                     while(editMessageBox.getText(0,1)==" ")
@@ -451,7 +451,7 @@ ApplicationWindow {
                     if(editMessageBox.text!="") {
                         listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
                         editMessageBox.text = ""
-                        listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
+                        if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                         if (scrollViewMessages.contentY < flickListMessages.maxContentY){
                             scrollViewMessages.contentY = flickListMessages.maxContentY
                         }
@@ -459,38 +459,16 @@ ApplicationWindow {
                 }
             }
 
-
-            Rectangle {
-                id: rectEmoji
+            SFaceButton {
+                id: btnFaceSticker
                 anchors {
                     right: btnSend.left
                     top: parent.top
                     bottom: parent.bottom
-                    margins: 10
-                    rightMargin: 0
+                    topMargin: 1
                 }
                 width: 40
-                color: "transparent"
-
-                Text {
-                    id: iconEmoji
-                    anchors.centerIn: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: 20
-                    font.family: "Material-Design-Iconic-Font"
-                    color: "#c0c0c0"
-                    text: mi_emoji
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: "PointingHandCursor"
-                }
             }
-
-
 
             WebCamButton {
                 id: webCameraButton
@@ -506,7 +484,7 @@ ApplicationWindow {
                 id: rectEditMessageBox
                 anchors {
                     left: webCameraButton.right
-                    right: rectEmoji.left
+                    right: btnFaceSticker.left
                     top: parent.top
                     bottom: parent.bottom
                     margins: 10

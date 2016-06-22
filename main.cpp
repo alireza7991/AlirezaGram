@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mi_chevron_left", u8"\uf2fa");
     engine.rootContext()->setContextProperty("mi_comments", u8"\uf266");
     engine.rootContext()->setContextProperty("mi_emoji", u8"\uf214");
+    engine.rootContext()->setContextProperty("mi_face", u8"\uf20e");
     engine.rootContext()->setContextProperty("mi_check_all", u8"\uf267");
     engine.rootContext()->setContextProperty("mi_check", u8"\uf26b");
     engine.rootContext()->setContextProperty("mi_caret_left", u8"\uf2f4");
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mi_caret_down", u8"\uf2f2");
     engine.rootContext()->setContextProperty("mi_camera", u8"\uf283");
     engine.rootContext()->setContextProperty("mi_comment_video", u8"\uf264");
+    engine.rootContext()->setContextProperty("mi_send", u8"\uf1a1");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

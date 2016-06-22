@@ -25,9 +25,8 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: "Material-Design-Iconic-Font"
             font.pointSize: 20
-            color: (itemFocus.text == "") ? root.color : root.hightlightColor
-            text: mi_send
-            rotation: 45
+            color: root.color
+            text: mi_emoji
 
             Behavior on scale {
                 NumberAnimation { duration: 50 }
@@ -47,9 +46,11 @@ Item {
         hoverEnabled: true
         cursorShape: "PointingHandCursor"
         onEntered: {
+            icon.color = root.hightlightColor
             root.bgColor = "#f0f0f0"
         }
         onExited: {
+            icon.color = root.color
             root.bgColor = "#ffffff"
         }
         onPressed: icon.scale = 0.9
@@ -57,4 +58,3 @@ Item {
         onClicked: root.clicked()
     }
 }
-

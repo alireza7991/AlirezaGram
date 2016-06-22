@@ -19,7 +19,7 @@ Item {
     property int newMessage: 50
     property bool notifications: true
     property bool checked: false
-    property string senderName:  "Other!12345678910"
+    property string senderName:  ""
 
     onCheckedChanged: {
         if(!root.checked) {
