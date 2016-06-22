@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>TButton.qml</file>
+        <file>ListButton.qml</file>
+        <file>WindowButtons.qml</file>
+        <file>ChevronButton.qml</file>
+        <file>MessageBubble.qml</file>
+        <file>SendButton.qml</file>
+        <file>EditPlain.qml</file>
+        <file>MScrollBar.qml</file>
+        <file>WebCamButton.qml</file>
+    </qresource>
+</RCC>

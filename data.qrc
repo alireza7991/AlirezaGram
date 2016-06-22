@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>fonts/Material-Design-Iconic-Font.ttf</file>
+        <file>fonts/OpenSans-Bold.ttf</file>
+        <file>fonts/OpenSans-Regular.ttf</file>
+        <file>fonts/OpenSans-Semibold.ttf</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>images/blurred.jpg</file>
+    </qresource>
+</RCC>
