@@ -8,7 +8,7 @@ Item {
     property color color: "#c0c0c0"
     property color highlightColor: "#2f7fFf"
     property color bgColor: "#ffffff"
-    property string icon: mi_camera
+    property string icon: mi_comment_video
 
     signal clicked()
 

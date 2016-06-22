@@ -31,8 +31,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mi_caret_up", u8"\uf2f8");
     engine.rootContext()->setContextProperty("mi_caret_down", u8"\uf2f2");
     engine.rootContext()->setContextProperty("mi_camera", u8"\uf283");
-
-
+    engine.rootContext()->setContextProperty("mi_comment_video", u8"\uf264");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
