@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id: root
     width: (maxWidth > appWindow.width/3) ? appWindow.width/3 : maxWidth
-    height: txtMessageBubble.implicitHeight + 30
+    height: txtMessageBubble.implicitHeight + 15
 
     property string pmText: ""
     property color selfColor:  "#d3edff"
@@ -19,13 +19,12 @@ Item {
         anchors.fill: parent
         radius: 5
 
-
         Text {
             id: iconCaret
             anchors {
                 left: root.self ? parent.right : parent.left
-                bottom: parent.bottom
-                bottomMargin: -5
+                top: parent.top
+                topMargin: -5
                 leftMargin: root.self ? -3 : -6
             }
             font.family: "Material-Design-Iconic-Font"
@@ -52,18 +51,19 @@ Item {
             z:1
         }
 
-
         Rectangle {
             id: rectTime_Check
             anchors {
-                left: if(!self) parent.left
-                right: if(self) parent.right
+                left: if(!root.self) parent.right
+                right: if(root.self) parent.left
+                top: parent.top
                 bottom: parent.bottom
             }
             width: rowState.implicitWidth+10
             height: txtMessageTime.implicitHeight
             color: root.bgColor
             radius: 5
+            visible: false
             Row {
                 id: rowState
                 anchors.fill: parent

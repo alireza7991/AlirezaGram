@@ -1,17 +1,21 @@
 import QtQuick 2.7
-import QtQuick.Controls 1.4 as Quick1
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.0
 
 ApplicationWindow {
     id: appWindow
+    // @disable-check M16
     visible: true
 
+    // @disable-check M16
     width: 800
+    // @disable-check M16
     height: 600
 
+    // @disable-check M16
     minimumHeight: 500
+    // @disable-check M16
     minimumWidth: 600
 
     background: BorderImage {
@@ -21,8 +25,9 @@ ApplicationWindow {
         verticalTileMode: BorderImage.Stretch
     }
 
-
+    // @disable-check M16
     flags: Qt.FramelessWindowHint || Qt.Window
+    // @disable-check M16
     visibility: "Maximized"
 
     onVisibilityChanged: appWindowButtons.max_min = (appWindow.visibility==4) ? mi_restore : mi_maximize
@@ -36,7 +41,7 @@ ApplicationWindow {
             top: parent.top
         }
         height: 39
-        color: "#1955a4"
+        color: "#52799e"
 
         Rectangle {
             id: icon
@@ -67,6 +72,11 @@ ApplicationWindow {
                 id: tbtnSettings
                 height: parent.height
                 caption: "Settings"
+            }
+            TButton {
+                id: tbtnCantacts
+                height: parent.height
+                caption: "Contacts"
             }
             TButton {
                 id: tbtnAbout
@@ -161,11 +171,11 @@ ApplicationWindow {
                     margins: 12
                     rightMargin: 0
                 }
-                width: 40
+                width: 35
                 color: editSearch.bgColor
 
                 Text {
-                    anchors.fill: parent
+                    anchors.centerIn: parent
                     font.family: "Material-Design-Iconic-Font"
                     font.pointSize: 15
                     verticalAlignment: Text.AlignVCenter
@@ -179,7 +189,7 @@ ApplicationWindow {
                 }
             }
 
-            Quick1.TextField {
+            TextField {
                 id: editSearch
                 anchors {
                     left: iconSearch.right
@@ -187,20 +197,18 @@ ApplicationWindow {
                     top: parent.top
                     bottom: parent.bottom
                     margins: 12
-                    leftMargin:0
+                    leftMargin: 0
                 }
                 placeholderText: "Search"
                 font.family: "Open Sans"
                 font.pointSize: 10
                 property color bgColor: "#f0f0f0"
                 clip: true
+                renderType: Text.QtRendering
 
-                style: TextFieldStyle {
-                    background: Rectangle {
-                        id: rectEditSearchStyle
-                        color: editSearch.bgColor
-                    }
-                    placeholderTextColor: "#a0a0a0"
+                background: Rectangle {
+                    id: rectEditSearchStyle
+                    color: editSearch.bgColor
                 }
 
                 onFocusChanged: {
@@ -209,7 +217,7 @@ ApplicationWindow {
                         rectSearchBox.borderColor = "#4ab7ee"
                     } else {
                         editSearch.bgColor = "#f0f0f0"
-                        rectSearchBox.borderColor = editSearch.bgColor
+                        rectSearchBox.borderColor = "#f0f0f0"
                     }
                 }
 
@@ -281,8 +289,6 @@ ApplicationWindow {
 
                     ListModel {
                         id: listModelChatList
-
-//                        ListElement{ title: "test"; text:"test"; isSelf: false}
                     }
 
                     Column {
@@ -366,7 +372,7 @@ ApplicationWindow {
                     right: parent.right
                     bottom: parent.bottom
                 }
-                height: 0.5
+                height: 1
                 color: "#e9e9e9"
             }
 
@@ -428,6 +434,8 @@ ApplicationWindow {
             height: 46
             visible: (listModelMessages.count) ? true : false
 
+            property real maxHeight: 200
+
             Rectangle {
                 // Border Left
                 anchors {
@@ -454,19 +462,20 @@ ApplicationWindow {
                 id: btnSend
                 anchors {
                     right: parent.right
-                    top: parent.top
                     bottom: parent.bottom
                     topMargin: 1
                 }
-                width: 50
+                height: 45
+                width: 40
                 itemFocus: editMessageBox
 
                 onClicked: {
-                    while(editMessageBox.getText(0,1)==" ")
+                    while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
                         editMessageBox.remove(0,1)
                     if(editMessageBox.text!="") {
                         listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
                         editMessageBox.text = ""
+                        rectMessageBox.height = editMessageBox.implicitHeight+28
                         if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                         if (scrollViewMessages.contentY < flickListMessages.maxContentY){
                             scrollViewMessages.contentY = flickListMessages.maxContentY
@@ -479,10 +488,9 @@ ApplicationWindow {
                 id: btnFaceSticker
                 anchors {
                     right: btnSend.left
-                    top: parent.top
                     bottom: parent.bottom
-                    topMargin: 1
                 }
+                height: 45
                 width: 40
             }
 
@@ -490,10 +498,11 @@ ApplicationWindow {
                 id: webCameraButton
                 anchors {
                     left: parent.left
-                    top: parent.top
                     bottom: parent.bottom
+                    leftMargin: 1
                 }
-                width: 50
+                height: 45
+                width: 40
             }
 
             Rectangle {
@@ -504,38 +513,41 @@ ApplicationWindow {
                     top: parent.top
                     bottom: parent.bottom
                     margins: 10
-                    leftMargin: 5
-                    rightMargin: 5
+                    leftMargin: 0
+                    rightMargin: 0
                 }
 
-                Quick1.TextField {
+                TextPlain {
                     id: editMessageBox
                     anchors.fill: parent
                     font.family: "Open Sans"
                     font.pointSize: 9.5
                     placeholderText: " Write a message..."
-
+                    renderType: Text.QtRendering
                     z:1
 
                     Keys.onReturnPressed: {
-                        while(editMessageBox.getText(0,1)==" ")
+                        while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
                             editMessageBox.remove(0,1)
                         if(editMessageBox.text!="") {
                             listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
                             editMessageBox.text = ""
+                            rectMessageBox.height = editMessageBox.implicitHeight+28
+                            if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                             if (scrollViewMessages.contentY < flickListMessages.maxContentY){
                                 scrollViewMessages.contentY = flickListMessages.maxContentY
                             }
                         }
                     }
 
-                    style: TextFieldStyle {
-                        background: Rectangle {
-                            anchors.fill: parent
-                            color: "#ffffff"
-                        }
-                        renderType: Text.QtRendering
-                    }
+                    onImplicitHeightChanged:
+                        if(rectMessageBox.height < rectMessageBox.maxHeight)
+                            rectMessageBox.height = editMessageBox.implicitHeight+28
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: "IBeamCursor"
                 }
             }
         }
@@ -546,6 +558,7 @@ ApplicationWindow {
                 left: rectSearchBox.right
                 right: parent.right
                 top: rectProfileTitle.bottom
+                topMargin: -0.1
                 bottom: rectMessageBox.top
             }
             color: "transparent"
@@ -563,7 +576,7 @@ ApplicationWindow {
                 clip: true
 
                 property real maxContentY: (listViewMessages.count!=0) ? ((flickListMessages.contentHeight - flickListMessages.height) +
-                                            (listViewMessages.itemAt(listViewMessages.count-1).height + listMessagesFooter.implicitHeight)) : 0
+                                                                          (listViewMessages.itemAt(listViewMessages.count-1).height + listMessagesFooter.implicitHeight)) : 0
 
                 contentY: scrollViewMessages.contentY
 
@@ -593,12 +606,12 @@ ApplicationWindow {
                         model: listModelMessages
                         delegate: MessageBubble {
                             anchors {
-                                left: if(anchor=="Left") listViewMessages.left
-                                right: if(anchor=="Right") listViewMessages.right
+                                left: if(!isSelf) listViewMessages.left
+                                right: if(isSelf) listViewMessages.right
                                 margins: 15
                                 bottomMargin: 10
                             }
-                            self: (anchor=="Right")? true : false
+                            self: isSelf
                             pmText: text
                         }
                     }
@@ -618,7 +631,7 @@ ApplicationWindow {
                 anchors.right: flickListMessages.right
                 flickableItem: flickListMessages
                 anchors.rightMargin: 2
-                bgColor: "#ffffff"
+                bgColor: "lightblue"
                 bgOpacity: 0.3
                 handleOpacity: 0.7
                 opacity: 0

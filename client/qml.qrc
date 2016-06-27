@@ -7,10 +7,10 @@
         <file>ChevronButton.qml</file>
         <file>MessageBubble.qml</file>
         <file>SendButton.qml</file>
-        <file>EditPlain.qml</file>
         <file>MScrollBar.qml</file>
         <file>WebCamButton.qml</file>
         <file>EmojiButton.qml</file>
         <file>SFaceButton.qml</file>
+        <file>TextPlain.qml</file>
     </qresource>
 </RCC>
