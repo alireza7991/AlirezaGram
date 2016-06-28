@@ -18,17 +18,57 @@ struct SIDEntry {
   const char *user;
   int time;
 };
+
 struct UserEntry {
     const char *user;
     const char *passwd;
 };
 
+struct MsgEntry {
+    char *content;
+    const char *sender;
+    const char *reciever;
+    unsigned time;
+};
+
+class MessageManager {
+public:
+    vector<MsgEntry> getUserMsgs(const char *username);
+    void addMsg(const char *sender,const char *reciever,char *content);
+private:
+    vector<MsgEntry> msgs;
+};
+
+vector<MsgEntry> MessageManager::getUserMsgs(const char *username) {
+    vector<MsgEntry> m;
+    for(vector<MsgEntry>::iterator i = msgs.begin(); i!=msgs.end();) {
+        MsgEntry mi = *i;
+        if(mi.reciever==username) {
+            m.push_back(mi);
+            msgs.erase(i);
+        }
+        else {
+            ++i;
+        }
+    }
+    return m;
+}
+
+void MessageManager::addMsg(const char *sender,const char *reciever,char *content) {
+    MsgEntry m;
+    m.sender=sender;
+    m.reciever=reciever;
+    m.time=time(0);
+    m.content=strdup(content);
+    msgs.push_back(m);
+}
+
 class UserManager {
 public:
     bool login(const char *user,const char *passwd);
-    bool checkSID(char *sid);
+    bool checkSID(const char *sid);
     char *newSID(const char *user);
-    void signup(const char *user,const char *passwd);
+    bool signup(const char *user,const char *passwd);
     const char *getSIDUser(char *sid);
     bool checkUser(const char *user);
     void updateSID(char *sid);
@@ -67,7 +107,7 @@ bool UserManager::login(const char *user,const char *passwd) {
     return false;
 }
 
-bool UserManager::checkSID(char *sid) {
+bool UserManager::checkSID(const char *sid) {
     for(SIDEntry t : sids) {
         if(!strcmp(t.sid,sid) && (t.time + SID_LIFE_TIME > time(0))) {
             return true;
@@ -102,11 +142,14 @@ char *UserManager::newSID(const char *user) {
     return t.sid;
 }
 
-void UserManager::signup(const char *user,const char *passwd) {
+// TODO: check if username is not registered before
+
+bool UserManager::signup(const char *user,const char *passwd) {
     UserEntry e;
     e.user = user;
     e.passwd = passwd;
     users.push_back(e);
+    return true;
 }
 
 bool UserManager::checkUser(const char *user) {
@@ -197,7 +240,7 @@ public:
         // get contacts
         } else if(command[0]=='c') {
             string sid = command.substr(1,5);
-            if(!manager.checkSID(sid)) {
+            if(!manager.checkSID(sid.c_str())) {
                 string out="esid";
                 sendString(c,out);
             }
