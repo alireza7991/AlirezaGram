@@ -1,11 +1,84 @@
 <RCC>
-    <qresource prefix="/fonts">
+    <qresource prefix="/">
         <file>fonts/Material-Design-Iconic-Font.ttf</file>
         <file>fonts/OpenSans-Bold.ttf</file>
         <file>fonts/OpenSans-Regular.ttf</file>
         <file>fonts/OpenSans-Semibold.ttf</file>
-    </qresource>
-    <qresource prefix="/images">
+        <file>fonts/Roboto.ttf</file>
         <file>images/blurred.jpg</file>
+        <file>emojis/0.svg</file>
+        <file>emojis/1.svg</file>
+        <file>emojis/10.svg</file>
+        <file>emojis/11.svg</file>
+        <file>emojis/12.svg</file>
+        <file>emojis/13.svg</file>
+        <file>emojis/14.svg</file>
+        <file>emojis/15.svg</file>
+        <file>emojis/16.svg</file>
+        <file>emojis/17.svg</file>
+        <file>emojis/18.svg</file>
+        <file>emojis/19.svg</file>
+        <file>emojis/2.svg</file>
+        <file>emojis/20.svg</file>
+        <file>emojis/21.svg</file>
+        <file>emojis/22.svg</file>
+        <file>emojis/23.svg</file>
+        <file>emojis/24.svg</file>
+        <file>emojis/25.svg</file>
+        <file>emojis/26.svg</file>
+        <file>emojis/27.svg</file>
+        <file>emojis/28.svg</file>
+        <file>emojis/29.svg</file>
+        <file>emojis/3.svg</file>
+        <file>emojis/30.svg</file>
+        <file>emojis/31.svg</file>
+        <file>emojis/32.svg</file>
+        <file>emojis/33.svg</file>
+        <file>emojis/34.svg</file>
+        <file>emojis/35.svg</file>
+        <file>emojis/36.svg</file>
+        <file>emojis/37.svg</file>
+        <file>emojis/38.svg</file>
+        <file>emojis/39.svg</file>
+        <file>emojis/4.svg</file>
+        <file>emojis/40.svg</file>
+        <file>emojis/41.svg</file>
+        <file>emojis/42.svg</file>
+        <file>emojis/43.svg</file>
+        <file>emojis/44.svg</file>
+        <file>emojis/45.svg</file>
+        <file>emojis/46.svg</file>
+        <file>emojis/47.svg</file>
+        <file>emojis/48.svg</file>
+        <file>emojis/49.svg</file>
+        <file>emojis/5.svg</file>
+        <file>emojis/50.svg</file>
+        <file>emojis/51.svg</file>
+        <file>emojis/52.svg</file>
+        <file>emojis/53.svg</file>
+        <file>emojis/54.svg</file>
+        <file>emojis/55.svg</file>
+        <file>emojis/56.svg</file>
+        <file>emojis/57.svg</file>
+        <file>emojis/58.svg</file>
+        <file>emojis/59.svg</file>
+        <file>emojis/6.svg</file>
+        <file>emojis/60.svg</file>
+        <file>emojis/61.svg</file>
+        <file>emojis/62.svg</file>
+        <file>emojis/63.svg</file>
+        <file>emojis/64.svg</file>
+        <file>emojis/65.svg</file>
+        <file>emojis/66.svg</file>
+        <file>emojis/67.svg</file>
+        <file>emojis/68.svg</file>
+        <file>emojis/69.svg</file>
+        <file>emojis/7.svg</file>
+        <file>emojis/70.svg</file>
+        <file>emojis/71.svg</file>
+        <file>emojis/72.svg</file>
+        <file>emojis/73.svg</file>
+        <file>emojis/8.svg</file>
+        <file>emojis/9.svg</file>
     </qresource>
 </RCC>

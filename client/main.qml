@@ -20,7 +20,7 @@ ApplicationWindow {
 
     background: BorderImage {
         id: bgImage
-        source: "qrc:/images/images/blurred.jpg"
+        source: "qrc:/images/blurred.jpg"
         horizontalTileMode: BorderImage.Stretch
         verticalTileMode: BorderImage.Stretch
     }
@@ -49,10 +49,10 @@ ApplicationWindow {
                 left: parent.left
                 top: parent.top
                 bottom: parent.bottom
-                margins: 10
+                margins: 8.5
             }
-            width: 20
-            color: "#153a88"
+            width: 22.5
+            color: "#26669e"
             radius: 20
         }
 
@@ -289,6 +289,35 @@ ApplicationWindow {
 
                     ListModel {
                         id: listModelChatList
+
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
+                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
                     }
 
                     Column {
@@ -300,8 +329,8 @@ ApplicationWindow {
                             model: listModelChatList
                             delegate: ListButton {
                                 width: parent.width
-                                caption: title
-                                lastText: text
+                                caption: title + index
+                                lastText: text + index
                                 lastTime: (listModelMessages.count) ? listViewMessages.itemAt(0).pmTime : "00:00"
                                 newMessage: index+1
                                 self: isSelf
@@ -447,6 +476,19 @@ ApplicationWindow {
                 color: "#e9e9e9"
             }
 
+
+            EmojiPicker {
+                id: emojiPicker
+                anchors {
+                    right: parent.right
+                    bottom: rectMessageBox.top
+                    bottomMargin: 10
+                    rightMargin: 10
+                }
+
+                visible: hovered
+            }
+
             Rectangle {
                 // Border Top
                 anchors {
@@ -492,6 +534,13 @@ ApplicationWindow {
                 }
                 height: 45
                 width: 40
+                onEntered:{
+                    emojiPicker.visible = true
+                    emojiPicker.hovered = true
+                }
+                onExited: {
+                    emojiPicker.hovered = false
+                }
             }
 
             WebCamButton {
@@ -566,6 +615,37 @@ ApplicationWindow {
 
             ListModel {
                 id: listModelMessages
+
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                //                ListElement { text: "Test Message Bubble "; isSelf: true }
+                //                ListElement { text: "Test Message Bubble "; isSelf: false }
             }
 
             Flickable {
@@ -612,7 +692,7 @@ ApplicationWindow {
                                 bottomMargin: 10
                             }
                             self: isSelf
-                            pmText: text
+                            pmText: text + index
                         }
                     }
 

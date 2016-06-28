@@ -11,6 +11,8 @@ Item {
     property variant itemFocus
 
     signal clicked()
+    signal entered()
+    signal exited()
 
     Rectangle {
         id: btn
@@ -47,11 +49,11 @@ Item {
         cursorShape: "PointingHandCursor"
         onEntered: {
             icon.color = root.hightlightColor
-            root.bgColor = "#f0f0f0"
+            root.entered()
         }
         onExited: {
             icon.color = root.color
-            root.bgColor = "#ffffff"
+            root.exited()
         }
         onPressed: icon.scale = 0.9
         onReleased: icon.scale = 1

@@ -12,5 +12,6 @@
         <file>EmojiButton.qml</file>
         <file>SFaceButton.qml</file>
         <file>TextPlain.qml</file>
+        <file>EmojiPicker.qml</file>
     </qresource>
 </RCC>

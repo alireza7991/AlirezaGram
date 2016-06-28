@@ -15,8 +15,8 @@ Item {
 
     Rectangle {
         id: rectMessageBubble
-        color: root.bgColor
         anchors.fill: parent
+        color: root.bgColor
         radius: 5
 
         Text {
