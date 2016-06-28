@@ -2,6 +2,15 @@
 #include <QQmlApplicationEngine>
 #include <QFontDatabase>
 #include <QQmlContext>
+#include <iostream>
+#include <string>
+#include <AlirezaSocket.h>
+
+class loginTest : public AlirezaSocket {
+    void onConnect(SOCKET c) {
+        sendString(c,"l7alireza9testp5assw");
+    }
+};
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +45,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mi_send", u8"\uf1a1");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
+    loginTest t;
+    t.Connect((char *)"127.0.0.1",7991);
     return app.exec();
 }
 
