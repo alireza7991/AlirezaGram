@@ -13,18 +13,18 @@
 
 using namespace std;
 
+struct SIDEntry {
+  char *sid;
+  const char *user;
+  int time;
+};
+struct UserEntry {
+    const char *user;
+    const char *passwd;
+};
 
 class UserManager {
 public:
-    struct SIDEntry {
-      char *sid;
-      const char *user;
-      int time;
-    };
-    struct UserEntry {
-        const char *user;
-        const char *passwd;
-    };
     bool login(const char *user,const char *passwd);
     bool checkSID(char *sid);
     char *newSID(const char *user);
@@ -160,8 +160,31 @@ public:
             }
         // signup
         } else if(command[0]=='s') {
-
-
+             cout << "recieved a sign-up request" << endl;
+             // retrieve username and password
+             if(command[1]<'0' || command[1]>'9') {
+                 sendString(c,"esyntax");
+                 closesocket(c);
+                 return;
+             }
+             int usernamelen = command[1]-48;
+             string username = command.substr(2,usernamelen);
+             if(command[1]<'0' || command[1]>'9') {
+                  sendString(c,"esyntax");
+                  closesocket(c);
+                  return;
+             }
+             string passwd = command.substr(3+usernamelen,string::npos);
+             if(manager.signup(username.c_str(),passwd.c_str())) {
+                  string session_id(manager.newSID(username.c_str()));
+                  string out = "so" + session_id;
+                  cout << "sign-up " << username << " successfully with password: " << passwd << " sid: " << session_id << endl;
+                  sendString(c,out);
+             } else {
+                   cout << "sign-up failed for " << username << endl;
+                   string out = "sf";
+                   sendString(c,out);
+             }
 
         // write message
         } else if(command[0]=='w') {
@@ -173,8 +196,18 @@ public:
 
         // get contacts
         } else if(command[0]=='c') {
-
-
+            string sid = command.substr(1,5);
+            if(!manager.checkSID(sid)) {
+                string out="esid";
+                sendString(c,out);
+            }
+            vector<UserEntry> users = manager.getUserList();
+            string out = "co";
+            for(auto u : users) {
+                out += u.user;
+                out += ":";
+            }
+            sendString(c,out);
         } // else !
         else {
             string out = "esyntax";
