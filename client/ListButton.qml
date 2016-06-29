@@ -65,7 +65,7 @@ Item {
                 font.family: "Material-Design-Iconic-Font"
                 font.pointSize: 35
                 color: "#ffffff"
-                text: mi_account
+                text: mi_account_c
             }
         }
 

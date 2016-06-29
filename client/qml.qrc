@@ -13,5 +13,8 @@
         <file>SFaceButton.qml</file>
         <file>TextPlain.qml</file>
         <file>EmojiPicker.qml</file>
+        <file>LoginPage.qml</file>
+        <file>MButton.qml</file>
+        <file>TextLink.qml</file>
     </qresource>
 </RCC>

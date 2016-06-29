@@ -5,9 +5,8 @@ TextEdit {
     id: editBox
 
     // Properties
-    property color  bgColor: "#ffffff"
     property string placeholderText: ""
-    property bool isEmpty: txtPlaceHolder.visible
+    property bool   isEmpty: txtPlaceHolder.visible
 
     width: 150
     height: 50
@@ -29,6 +28,7 @@ TextEdit {
                    else
                        txtPlaceHolder.visible = false
 
+
     Text {
         id: txtPlaceHolder
         anchors.fill: parent
@@ -40,6 +40,12 @@ TextEdit {
         clip: true
         opacity: 0.4
         visible: (editBox.text != "") ? false : true
-        z:1
+        z:2
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: "IBeamCursor"
+        onClicked: parent.forceActiveFocus()
     }
 }

@@ -126,7 +126,11 @@ ApplicationWindow {
             top: rectTitle.bottom
             bottom: parent.bottom
         }
-        initialItem: pageMain
+        initialItem: pageLogin
+    }
+
+    LoginPage {
+        id: pageLogin
     }
 
     Rectangle {
@@ -730,7 +734,7 @@ ApplicationWindow {
         Text {
             anchors.centerIn: pageSettings
             font.pointSize: 20
-            text: "About us."
+            text: "Settings."
             font.family: "Open Sans"
         }
     }

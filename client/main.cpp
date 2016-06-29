@@ -15,7 +15,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty("mi_search", u8"\uf1c3");
-    engine.rootContext()->setContextProperty("mi_account", u8"\uf205");
+    engine.rootContext()->setContextProperty("mi_account", u8"\uf203");
+    engine.rootContext()->setContextProperty("mi_account_c", u8"\uf205");
     engine.rootContext()->setContextProperty("mi_close", u8"\uf136");
     engine.rootContext()->setContextProperty("mi_maximize", u8"\uf1ea");
     engine.rootContext()->setContextProperty("mi_minimize", u8"\uf1eb");
