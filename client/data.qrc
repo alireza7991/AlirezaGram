@@ -80,5 +80,6 @@
         <file>emojis/73.svg</file>
         <file>emojis/8.svg</file>
         <file>emojis/9.svg</file>
+        <file>images/iconbig256.png</file>
     </qresource>
 </RCC>
