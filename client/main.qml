@@ -476,19 +476,6 @@ ApplicationWindow {
                 color: "#e9e9e9"
             }
 
-
-            EmojiPicker {
-                id: emojiPicker
-                anchors {
-                    right: parent.right
-                    bottom: rectMessageBox.top
-                    bottomMargin: 10
-                    rightMargin: 10
-                }
-
-                visible: hovered
-            }
-
             Rectangle {
                 // Border Top
                 anchors {
@@ -514,10 +501,9 @@ ApplicationWindow {
                 onClicked: {
                     while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
                         editMessageBox.remove(0,1)
-                    if(editMessageBox.text!="") {
+                    if(!editMessageBox.isEmpty) {
                         listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
                         editMessageBox.text = ""
-                        rectMessageBox.height = editMessageBox.implicitHeight+28
                         if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                         if (scrollViewMessages.contentY < flickListMessages.maxContentY){
                             scrollViewMessages.contentY = flickListMessages.maxContentY
@@ -572,16 +558,16 @@ ApplicationWindow {
                     font.family: "Open Sans"
                     font.pointSize: 9.5
                     placeholderText: " Write a message..."
-                    renderType: Text.QtRendering
                     z:1
+
+                    onTextChanged: rectMessageBox.height = editMessageBox.implicitHeight+28
 
                     Keys.onReturnPressed: {
                         while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
                             editMessageBox.remove(0,1)
-                        if(editMessageBox.text!="") {
+                        if(!editMessageBox.isEmpty) {
                             listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
                             editMessageBox.text = ""
-                            rectMessageBox.height = editMessageBox.implicitHeight+28
                             if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                             if (scrollViewMessages.contentY < flickListMessages.maxContentY){
                                 scrollViewMessages.contentY = flickListMessages.maxContentY
@@ -617,35 +603,35 @@ ApplicationWindow {
                 id: listModelMessages
 
                 ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
-                //                ListElement { text: "Test Message Bubble "; isSelf: true }
-                //                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true }
+                ListElement { text: "Test Message Bubble "; isSelf: false }
             }
 
             Flickable {
@@ -654,11 +640,12 @@ ApplicationWindow {
                 contentWidth: columnListMessages.implicitWidth
                 contentHeight: columnListMessages.implicitHeight
                 clip: true
+                z:0
 
                 property real maxContentY: (listViewMessages.count!=0) ? ((flickListMessages.contentHeight - flickListMessages.height) +
-                                                                          (listViewMessages.itemAt(listViewMessages.count-1).height + listMessagesFooter.implicitHeight)) : 0
+                                                                          listMessagesFooter.implicitHeight) - 20 : 0
 
-                contentY: scrollViewMessages.contentY
+                contentY: (scrollViewMessages.contentY < flickListMessages.maxContentY) ? maxContentY : scrollViewMessages.contentY
 
                 states: State {
                     name: "ShowBars"
@@ -692,7 +679,7 @@ ApplicationWindow {
                                 bottomMargin: 10
                             }
                             self: isSelf
-                            pmText: text + index
+                            pmText: text
                         }
                     }
 
@@ -721,6 +708,17 @@ ApplicationWindow {
                 clip: true
                 visible: (flickListMessages.contentHeight > rectMessagePage.height) ? true : false
             }
+        }
+
+        EmojiPicker {
+            id: emojiPicker
+            anchors {
+                right: parent.right
+                bottom: rectMessageBox.top
+                bottomMargin: 10
+                rightMargin: 10
+            }
+            textPlain: editMessageBox
         }
     }
 

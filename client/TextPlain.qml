@@ -7,6 +7,7 @@ TextEdit {
     // Properties
     property color  bgColor: "#ffffff"
     property string placeholderText: ""
+    property bool isEmpty: txtPlaceHolder.visible
 
     width: 150
     height: 50
@@ -17,11 +18,19 @@ TextEdit {
     verticalAlignment: TextEdit.AlignVCenter
     clip: true
     wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
+    text:""
     selectByMouse: true
     selectionColor: "#569bdb"
     renderType: Text.QtRendering
+    textFormat: Text.RichText
+
+    onTextChanged: if(getText(0,1) == "")
+                       txtPlaceHolder.visible = true
+                   else
+                       txtPlaceHolder.visible = false
 
     Text {
+        id: txtPlaceHolder
         anchors.fill: parent
         verticalAlignment: editBox.verticalAlignment
         horizontalAlignment: editBox.horizontalAlignment

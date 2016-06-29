@@ -25,7 +25,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: "Material-Design-Iconic-Font"
             font.pointSize: 20
-            color: (itemFocus.text == "") ? root.color : root.hightlightColor
+            color: (itemFocus.isEmpty) ? root.color : root.hightlightColor
             text: mi_send
             rotation: 45
 

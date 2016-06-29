@@ -5,8 +5,10 @@ Item {
     id: root
     width: gridEmojis.implicitWidth
     height: 300
+    visible: false
 
     property bool hovered: false
+    property variant textPlain
 
     FolderListModel {
         id: folderModel
@@ -17,7 +19,7 @@ Item {
 
     Timer {
         id: visbileTime
-        interval: 1000
+        interval: 500
         running: !hovered
         onTriggered: root.visible = false
     }
@@ -103,8 +105,10 @@ Item {
                         height: 50
                         clip: true
                         color: "#ffffff"
+                        z:100
 
                         Image {
+                            id: emoji
                             anchors.centerIn: parent
                             width: 30
                             height: 30
@@ -116,6 +120,9 @@ Item {
                             hoverEnabled: true
                             cursorShape: "PointingHandCursor"
 
+                            onClicked: {
+                                textPlain.insert(textPlain.cursorPosition, '<img src="'+folderModel.folder+fileName+'" width=30 height=30 />')
+                            }
                             onEntered: {
                                 root.hovered = true
                                 parent.color = "#e8f2ff"

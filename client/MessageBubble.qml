@@ -48,6 +48,7 @@ Item {
             selectByMouse: true
             selectionColor: "#569bdb"
             text: root.pmText
+            textFormat: TextEdit.RichText
             z:1
         }
 
