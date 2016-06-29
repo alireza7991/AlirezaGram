@@ -161,8 +161,7 @@ ApplicationWindow {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: "IBeamCursor"
-                    onClicked:
-                        editSearch.forceActiveFocus()
+                    onClicked: editSearch.forceActiveFocus()
                 }
             }
 
