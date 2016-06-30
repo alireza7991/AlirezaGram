@@ -3,6 +3,11 @@
 #include <QFontDatabase>
 #include <QQmlContext>
 #include <QLocale>
+#include <QDebug>
+#include <QVector>
+#include <QColor>
+#include <QImage>
+#include <QPixmap>
 #include <QString>
 #include <AlirezaSocket.h>
 #include <opencvQtWrapper.h>
