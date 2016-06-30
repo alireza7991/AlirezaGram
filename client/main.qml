@@ -567,6 +567,11 @@ ApplicationWindow {
                     }
                     height: 45
                     width: 40
+
+                    onClicked: {
+                        rectVideoChat.show()
+                        pageMain.enabled = false
+                    }
                 }
 
                 Rectangle {
@@ -615,6 +620,7 @@ ApplicationWindow {
                     rightMargin: 10
                 }
                 textPlain: editMessageBox
+                z:1
             }
 
             ListModel {
@@ -663,7 +669,6 @@ ApplicationWindow {
                 contentWidth: columnListMessages.implicitWidth
                 contentHeight: columnListMessages.implicitHeight
                 clip: true
-                z:0
 
                 property real maxContentY: (listViewMessages.count!=0) ? (flickListMessages.contentHeight - flickListMessages.height)  : 0
 
@@ -735,6 +740,79 @@ ApplicationWindow {
                 contentY: (flickListMessages.contentHeight > rectMessagePage.height) ? flickListMessages.maxContentY : 0
                 visible: (flickListMessages.contentHeight > rectMessagePage.height) ? true : false
             }
+        }
+    }
+
+    Rectangle {
+        id: rectFade
+        anchors.fill: parent
+        color: "#000000"
+        opacity: 0
+        visible: false
+        z:1
+
+        Behavior on opacity {
+            NumberAnimation { duration: 100 }
+        }
+    }
+
+    Rectangle {
+        id: rectVideoChat
+        anchors.fill: rectFade
+        anchors.margins: 150
+        color: "#000000"
+        radius: 10
+        opacity: 0
+        visible: false
+        z:1
+
+        function show(){
+            rectFade.visible = true
+            rectFade.opacity = 0.5
+            visible = true
+            opacity = 1
+        }
+
+        function close(){
+            opacity = 0
+            visible = false
+            rectFade.opacity = 0
+            rectFade.visible = false
+        }
+
+        Text {
+            id: iconClose
+            anchors {
+                right: parent.right
+                top: parent.top
+                margins: 10
+                rightMargin: iconClose.implicitWidth
+            }
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            color: "#ffffff"
+            opacity: 0.7
+            font.family: "Material-Design-Iconic-Font"
+            font.pointSize: 20
+            text: mi_close
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: "PointingHandCursor"
+                onEntered: parent.opacity = 1
+                onExited: parent.opacity = 0.7
+                onPressed: parent.scale = 0.9
+                onReleased: parent.scale = 1
+                onClicked: {
+                    rectVideoChat.close()
+                    pageMain.enabled = true
+                }
+            }
+        }
+
+        Behavior on opacity {
+            NumberAnimation { duration: 100 }
         }
     }
 
