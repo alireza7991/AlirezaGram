@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QFontDatabase>
 #include <QQmlContext>
+#include <QLocale>
+#include <QString>
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +13,7 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont(":/fonts/OpenSans-Bold.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OpenSans-Regular.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OpenSans-Semibold.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/emoticons.ttf");
 
     QQmlApplicationEngine engine;
 

@@ -80,8 +80,15 @@ Page {
             width: txtLogin.implicitWidth
             placeholderText: "Enter username"
             validator: RegExpValidator {
-                regExp: /[0-9a-zA-Z]*(\.)?[0-9a-zA-Z]*(\_)?[0-9a-zA-Z]*/
+                regExp: /(\.)?[0-9a-zA-Z]*(\.)?[0-9a-zA-Z]*(\_)?[0-9a-zA-Z]*/
             }
+            maximumLength: 9
+
+            onTextChanged: changed = true
+
+            property bool changed: false
+
+
 
             background: Rectangle {
                 color: (editUsername.focus) ? "#ffffff" : "#f5f5f5"
@@ -153,6 +160,7 @@ Page {
             bgColor: hlColor
             color: "#ffffff"
             text: "Sgin In"
+            fontSize: 11
 
             onClicked: stkViewMain.push(pageMain)
         }

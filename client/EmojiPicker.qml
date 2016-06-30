@@ -17,10 +17,77 @@ Item {
         folder: "emojis/"
     }
 
+    ListModel {
+        id: emojiListModel
+
+            ListElement { icon: "a" }
+            ListElement { icon: "b" }
+            ListElement { icon: "c" }
+            ListElement { icon: "d" }
+            ListElement { icon: "e" }
+            ListElement { icon: "f" }
+            ListElement { icon: "g" }
+            ListElement { icon: "h" }
+            ListElement { icon: "i" }
+            ListElement { icon: "j" }
+            ListElement { icon: "k" }
+            ListElement { icon: "l" }
+            ListElement { icon: "m" }
+            ListElement { icon: "n" }
+            ListElement { icon: "o" }
+            ListElement { icon: "p" }
+            ListElement { icon: "q" }
+            ListElement { icon: "r" }
+            ListElement { icon: "s" }
+            ListElement { icon: "t" }
+            ListElement { icon: "u" }
+            ListElement { icon: "v" }
+            ListElement { icon: "w" }
+            ListElement { icon: "x" }
+            ListElement { icon: "y" }
+            ListElement { icon: "z" }
+            ListElement { icon: "A" }
+            ListElement { icon: "B" }
+            ListElement { icon: "C" }
+            ListElement { icon: "D" }
+            ListElement { icon: "E" }
+            ListElement { icon: "F" }
+            ListElement { icon: "G" }
+            ListElement { icon: "H" }
+            ListElement { icon: "I" }
+            ListElement { icon: "J" }
+            ListElement { icon: "K" }
+            ListElement { icon: "L" }
+            ListElement { icon: "M" }
+            ListElement { icon: "N" }
+            ListElement { icon: "O" }
+            ListElement { icon: "P" }
+            ListElement { icon: "Q" }
+            ListElement { icon: "R" }
+            ListElement { icon: "S" }
+            ListElement { icon: "T" }
+            ListElement { icon: "U" }
+            ListElement { icon: "V" }
+            ListElement { icon: "W" }
+            ListElement { icon: "X" }
+            ListElement { icon: "Y" }
+            ListElement { icon: "Z" }
+            ListElement { icon: "0" }
+            ListElement { icon: "1" }
+            ListElement { icon: "2" }
+            ListElement { icon: "3" }
+            ListElement { icon: "4" }
+            ListElement { icon: "5" }
+            ListElement { icon: "6" }
+            ListElement { icon: "7" }
+            ListElement { icon: "8" }
+            ListElement { icon: "9" }
+    }
+
     Timer {
         id: visbileTime
         interval: 500
-        running: !hovered
+        running: !hovered && !scrollViewEmojis.hovered
         onTriggered: root.visible = false
     }
 
@@ -98,7 +165,7 @@ Item {
 
                 Repeater {
                     id: emojis
-                    model: folderModel
+                    model: emojiListModel
 
                     Rectangle {
                         width: 50
@@ -107,12 +174,17 @@ Item {
                         color: "#ffffff"
                         z:100
 
-                        Image {
+                        Text {
                             id: emoji
                             anchors.centerIn: parent
                             width: 30
                             height: 30
-                            source: folderModel.folder+fileName
+                            color: "#4389d9"
+                            font.family: "Emoticons"
+                            font.pointSize: 25
+                            text: icon
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
                         }
 
                         MouseArea {
@@ -121,7 +193,7 @@ Item {
                             cursorShape: "PointingHandCursor"
 
                             onClicked: {
-                                textPlain.insert(textPlain.cursorPosition, '<img src="'+folderModel.folder+fileName+'" width=30 height=30 />')
+                                textPlain.insert(textPlain.cursorPosition, " <p style=\"font-family:'Emoticons'; font-size:30px; color:"+emoji.color+";\">"+icon+"</p> ")
                             }
                             onEntered: {
                                 root.hovered = true

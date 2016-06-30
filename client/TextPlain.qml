@@ -21,7 +21,7 @@ TextEdit {
     selectByMouse: true
     selectionColor: "#569bdb"
     renderType: Text.QtRendering
-    textFormat: Text.RichText
+    textFormat: TextEdit.AutoText
 
     onTextChanged: if(getText(0,1) == "")
                        txtPlaceHolder.visible = true
@@ -41,11 +41,5 @@ TextEdit {
         opacity: 0.4
         visible: (editBox.text != "") ? false : true
         z:2
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        cursorShape: "IBeamCursor"
-        onClicked: parent.forceActiveFocus()
     }
 }

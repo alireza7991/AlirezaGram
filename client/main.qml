@@ -555,6 +555,14 @@ ApplicationWindow {
                     rightMargin: 0
                 }
 
+                MouseArea {
+                    anchors.fill: editMessageBox
+                    hoverEnabled: true
+                    cursorShape: "IBeamCursor"
+
+                    onClicked: editMessageBox.forceActiveFocus()
+                }
+
                 TextPlain {
                     id: editMessageBox
                     anchors.fill: parent
@@ -563,13 +571,13 @@ ApplicationWindow {
                     placeholderText: " Write a message..."
                     z:1
 
-                    onTextChanged: rectMessageBox.height = editMessageBox.implicitHeight+28
+                    onTextChanged: (editMessageBox.implicitHeight+28 < 45) ? rectMessageBox.height = 46 : (editMessageBox.implicitHeight+28 < 250) ? rectMessageBox.height = editMessageBox.implicitHeight+28 : 250
 
                     Keys.onReturnPressed: {
                         while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
                             editMessageBox.remove(0,1)
                         if(!editMessageBox.isEmpty) {
-                            listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
+                            listModelMessages.insert(listViewMessages.count,{text: editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
                             editMessageBox.text = ""
                             if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                             if (scrollViewMessages.contentY < flickListMessages.maxContentY){
@@ -577,15 +585,6 @@ ApplicationWindow {
                             }
                         }
                     }
-
-                    onImplicitHeightChanged:
-                        if(rectMessageBox.height < rectMessageBox.maxHeight)
-                            rectMessageBox.height = editMessageBox.implicitHeight+28
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: "IBeamCursor"
                 }
             }
         }
