@@ -25,7 +25,7 @@ struct UserEntry {
 };
 
 struct MsgEntry {
-    char *content;
+    const char *content;
     const char *sender;
     const char *reciever;
     unsigned time;
@@ -34,7 +34,7 @@ struct MsgEntry {
 class MessageManager {
 public:
     vector<MsgEntry> getUserMsgs(const char *username);
-    void addMsg(const char *sender,const char *reciever,char *content);
+    void addMsg(const char *sender,const char *reciever,const char *content);
 private:
     vector<MsgEntry> msgs;
 };
@@ -54,7 +54,7 @@ vector<MsgEntry> MessageManager::getUserMsgs(const char *username) {
     return m;
 }
 
-void MessageManager::addMsg(const char *sender,const char *reciever,char *content) {
+void MessageManager::addMsg(const char *sender,const char *reciever,const char *content) {
     MsgEntry m;
     m.sender=sender;
     m.reciever=reciever;
@@ -67,14 +67,15 @@ class UserManager {
 public:
     bool login(const char *user,const char *passwd);
     bool checkSID(const char *sid);
-    char *newSID(const char *user);
+    const char *newSID(const char *user);
     bool signup(const char *user,const char *passwd);
-    const char *getSIDUser(char *sid);
+    const char *getSIDUser(const char *sid);
     bool checkUser(const char *user);
-    void updateSID(char *sid);
+    void updateSID(const char *sid);
     vector<UserEntry> getUserList() {
         return this->users;
     }
+
 
 
 protected:
@@ -116,7 +117,7 @@ bool UserManager::checkSID(const char *sid) {
     return false;
 }
 
-void UserManager::updateSID(char *sid) {
+void UserManager::updateSID(const char *sid) {
     for(int i = 0 ; i<sids.size();i++) {
         if(!strcmp(sids[i].sid,sid)) {
             sids[i].time=time(0);
@@ -124,7 +125,7 @@ void UserManager::updateSID(char *sid) {
     }
 }
 
-const char *UserManager::getSIDUser(char *sid) {
+const char *UserManager::getSIDUser(const char *sid) {
     for(int i = 0 ; i<sids.size();i++) {
         if(!strcmp(sids[i].sid,sid)) {
             return sids[i].user;
@@ -133,7 +134,7 @@ const char *UserManager::getSIDUser(char *sid) {
     return 0;
 }
 
-char *UserManager::newSID(const char *user) {
+const char *UserManager::newSID(const char *user) {
     SIDEntry t;
     t.user=user;
     t.time=time(0);
@@ -231,11 +232,42 @@ public:
 
         // write message
         } else if(command[0]=='w') {
-
-
+            string sid = command.substr(1,5);
+            if(!manager.checkSID(sid.c_str())) {
+                string out="esid";
+                sendString(c,out);
+                closesocket(c);
+                return;
+            }
+            unsigned ul = command.find(':',0);
+            string reciever = command.substr(6,ul);
+            string content = command.substr(ul+1,string::npos);
+            string sender = manager.getSIDUser(sid.c_str());
+            cout << "recieved a message from " << sender << " to " << reciever << " content " << content << endl;
+            msgmanager.addMsg(sender.c_str(),reciever.c_str(),content.c_str());
+            string out = "mo";
+            sendString(c,out);
         // read message
         } else if(command[0]=='r') {
-
+            string sid = command.substr(1,5);
+            if(!manager.checkSID(sid.c_str())) {
+                string out="esid";
+                sendString(c,out);
+                closesocket(c);
+                return;
+            }
+            string out = "mo";
+            string username = manager.getSIDUser(sid.c_str());
+            vector<MsgEntry> msgs = msgmanager.getUserMsgs(username.c_str());
+            out += to_string(msgs.size());
+            sendString(c,out);
+            for(MsgEntry m : msgs) {
+                string ms = "ms";
+                ms += string(m.sender);
+                ms += ':';
+                ms += string(m.content);
+                sendString(c,ms);
+            }
 
         // get contacts
         } else if(command[0]=='c') {
@@ -243,6 +275,8 @@ public:
             if(!manager.checkSID(sid.c_str())) {
                 string out="esid";
                 sendString(c,out);
+                closesocket(c);
+                return;
             }
             vector<UserEntry> users = manager.getUserList();
             string out = "co";
@@ -260,6 +294,7 @@ public:
 
 private:
     UserManager manager;
+    MessageManager msgmanager;
 
 };
 
