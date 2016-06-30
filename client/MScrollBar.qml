@@ -15,7 +15,7 @@ Item {
     property real contentY: 0
     property real contentX: 0
     property real pageSize
-    property variant orientation : Qt.Vertical
+    property int orientation : Qt.Vertical
     property variant flickableItem
     property color bgColor: "#000000"
     property real bgOpacity: 0.2
@@ -84,8 +84,9 @@ Item {
             scrollBar.pressed = false
         }
         onMouseYChanged: {
-            if(scrollBar.orientation == Qt.Vertical && scrollBar.pressed)
+            if(scrollBar.orientation == Qt.Vertical && scrollBar.pressed) {
                 scrollBar.contentY = (musArea.mouseY / background.height * (flickableItem.contentHeight - flickableItem.height))
+            }
             else if (scrollBar.orientation == Qt.Horizontal && scrollBar.pressed)
                 scrollBar.contentX = (musArea.mouseX / background.width * (flickableItem.contentWidth - flickableItem.width))
         }

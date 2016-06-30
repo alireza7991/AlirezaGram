@@ -10,7 +10,7 @@ Item {
     property color otherColor: "#ffffff"
     property bool self: true
     property color bgColor: root.self ? root.selfColor : root.otherColor
-    property int maxWidth: (txtMessageBubble.implicitWidth < rectTime_Check.width-10 ) ? txtMessageBubble.implicitWidth + (rectTime_Check.width - txtMessageBubble.implicitWidth) + 15 : txtMessageBubble.implicitWidth + 30
+    property int maxWidth: txtMessageBubble.implicitWidth + 20
     property string pmTime: Qt.formatDateTime(new Date(), "hh:mm")
 
     Rectangle {

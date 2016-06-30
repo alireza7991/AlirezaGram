@@ -104,7 +104,7 @@ ApplicationWindow {
         MouseArea {
             id: mouseRegion
             anchors.fill: parent;
-            property variant clickPos: "1,1"
+            property point clickPos: "1,1"
 
             onPressed: {
                 clickPos  = Qt.point(mouse.x,mouse.y)
@@ -374,135 +374,97 @@ ApplicationWindow {
             }
         }
 
-
         Rectangle {
-            id: rectProfileTitle
+            id: rectMessagePage
             anchors {
                 left: rectSearchBox.right
                 right: parent.right
                 top: parent.top
-                leftMargin: 0.5
-            }
-            height: 54.5
-            visible: (listModelMessages.count) ? true : false
-
-            Rectangle {
-                // Border Left
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: 0.5
-                color: "#e9e9e9"
-            }
-
-            Rectangle {
-                // Border Bottom
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-                height: 1
-                color: "#e9e9e9"
-            }
-
-            Text {
-                id: txtProfileTitle
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    margins: 8.5
-                    leftMargin: 16
-                }
-                font.family: "Open Sans"
-                font.pointSize: 9.25
-                font.weight: Font.DemiBold
-                text: "[M]ohammad [R]eza"
-            }
-
-            Text {
-                id: txtProfileStatus
-                anchors {
-                    left: parent.left
-                    top: txtProfileTitle.bottom
-                    margins: 2
-                    leftMargin: 16
-                }
-                font.family: "Open Sans"
-                font.pointSize: 9.25
-                color: "#959595"
-                text: "last seen recently"
-            }
-
-            ChevronButton {
-                id: btnCRight
-                anchors {
-                    right: parent.right
-                    top: parent.top
-                    bottom: parent.bottom
-                    margins: 28
-                }
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: "PointingHandCursor"
-                onEntered: btnCRight.opacity = 1
-                onExited: btnCRight.opacity = 0.5
-            }
-        }
-
-        Rectangle {
-            id: rectMessageBox
-            anchors {
-                left: rectSearchBox.right
-                right: parent.right
+                topMargin: -0.1
                 bottom: parent.bottom
-                leftMargin: 0.5
             }
-            height: 46
-            visible: (listModelMessages.count) ? true : false
-
-            property real maxHeight: 200
+            color: "transparent"
+            clip: true
 
             Rectangle {
-                // Border Left
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: 0.5
-                color: "#e9e9e9"
-            }
-
-            Rectangle {
-                // Border Top
+                id: rectProfileTitle
                 anchors {
                     left: parent.left
                     right: parent.right
                     top: parent.top
+                    leftMargin: 0.5
                 }
-                height: 0.5
-                color: "#e9e9e9"
+                height: 54.5
+                visible: (listModelMessages.count) ? true : false
+                z:1
+
+                Rectangle {
+                    // Border Left
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: 0.5
+                    color: "#e9e9e9"
+                }
+
+                Rectangle {
+                    // Border Bottom
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    height: 1
+                    color: "#e9e9e9"
+                }
+
+                Text {
+                    id: txtProfileTitle
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        margins: 8.5
+                        leftMargin: 16
+                    }
+                    font.family: "Open Sans"
+                    font.pointSize: 9.25
+                    font.weight: Font.DemiBold
+                    text: "[M]ohammad [R]eza"
+                }
+
+                Text {
+                    id: txtProfileStatus
+                    anchors {
+                        left: parent.left
+                        top: txtProfileTitle.bottom
+                        margins: 2
+                        leftMargin: 16
+                    }
+                    font.family: "Open Sans"
+                    font.pointSize: 9.25
+                    color: "#959595"
+                    text: "last seen recently"
+                }
             }
 
-            SendButton {
-                id: btnSend
+            Rectangle {
+                id: rectMessageBox
                 anchors {
+                    left: parent.left
                     right: parent.right
                     bottom: parent.bottom
-                    topMargin: 1
+                    leftMargin: 0.5
                 }
-                height: 45
-                width: 40
-                itemFocus: editMessageBox
+                height: 46
+                visible: (listModelMessages.count) ? true : false
+                z:1
 
-                onClicked: {
-                    while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
+                property real maxHeight: 200
+
+                function sendMessage() {
+                    while(editMessageBox.getText(0,1)===" " || editMessageBox.getText(0,1)==="	")
                         editMessageBox.remove(0,1)
                     if(!editMessageBox.isEmpty) {
                         listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
@@ -513,93 +475,147 @@ ApplicationWindow {
                         }
                     }
                 }
-            }
 
-            SFaceButton {
-                id: btnFaceSticker
-                anchors {
-                    right: btnSend.left
-                    bottom: parent.bottom
-                }
-                height: 45
-                width: 40
-                onEntered:{
-                    emojiPicker.visible = true
-                    emojiPicker.hovered = true
-                }
-                onExited: {
-                    emojiPicker.hovered = false
-                }
-            }
-
-            WebCamButton {
-                id: webCameraButton
-                anchors {
-                    left: parent.left
-                    bottom: parent.bottom
-                    leftMargin: 1
-                }
-                height: 45
-                width: 40
-            }
-
-            Rectangle {
-                id: rectEditMessageBox
-                anchors {
-                    left: webCameraButton.right
-                    right: btnFaceSticker.left
-                    top: parent.top
-                    bottom: parent.bottom
-                    margins: 10
-                    leftMargin: 0
-                    rightMargin: 0
+                Rectangle {
+                    // Border Left
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: 0.5
+                    color: "#e9e9e9"
                 }
 
-                MouseArea {
-                    anchors.fill: editMessageBox
-                    hoverEnabled: true
-                    cursorShape: "IBeamCursor"
-
-                    onClicked: editMessageBox.forceActiveFocus()
+                Rectangle {
+                    // Border Top
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
+                    height: 0.5
+                    color: "#e9e9e9"
                 }
 
-                TextPlain {
-                    id: editMessageBox
-                    anchors.fill: parent
-                    font.family: "Open Sans"
-                    font.pointSize: 9.5
-                    placeholderText: " Write a message..."
-                    z:1
+                SendButton {
+                    id: btnSend
+                    anchors {
+                        right: parent.right
+                        bottom: parent.bottom
+                        topMargin: 1
+                    }
+                    height: 45
+                    width: 40
+                    itemFocus: editMessageBox
 
-                    onTextChanged: (editMessageBox.implicitHeight+28 < 45) ? rectMessageBox.height = 46 : (editMessageBox.implicitHeight+28 < 250) ? rectMessageBox.height = editMessageBox.implicitHeight+28 : 250
+                    onClicked: {
+                        rectMessageBox.sendMessage();
+                    }
+                }
 
-                    Keys.onReturnPressed: {
-                        while(editMessageBox.getText(0,1)==" " || editMessageBox.getText(0,1)=="	")
-                            editMessageBox.remove(0,1)
-                        if(!editMessageBox.isEmpty) {
-                            listModelMessages.insert(listViewMessages.count,{text: editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
-                            editMessageBox.text = ""
-                            if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
-                            if (scrollViewMessages.contentY < flickListMessages.maxContentY){
-                                scrollViewMessages.contentY = flickListMessages.maxContentY
+                SFaceButton {
+                    id: btnFaceSticker
+                    anchors {
+                        right: btnSend.left
+                        bottom: parent.bottom
+                    }
+                    height: 45
+                    width: 40
+                }
+
+                Rectangle {
+                    id: rectEmoji
+                    anchors {
+                        right: btnFaceSticker.left
+                        bottom: parent.bottom
+                    }
+                    width: 40
+                    height: 45
+
+                    Text {
+                        id: iconEmoji
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "Material-Design-Iconic-Font"
+                        font.pointSize: 20
+                        color: "#c0c0c0"
+                        text: mi_emoji
+
+                        MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+
+                            onEntered:{
+                                emojiPicker.visible = true
+                                emojiPicker.hovered = true
+                            }
+                            onExited: {
+                                emojiPicker.hovered = false
                             }
                         }
                     }
                 }
-            }
-        }
 
-        Rectangle {
-            id: rectMessagePage
-            anchors {
-                left: rectSearchBox.right
-                right: parent.right
-                top: rectProfileTitle.bottom
-                topMargin: -0.1
-                bottom: rectMessageBox.top
+                WebCamButton {
+                    id: webCameraButton
+                    anchors {
+                        left: parent.left
+                        bottom: parent.bottom
+                        leftMargin: 1
+                    }
+                    height: 45
+                    width: 40
+                }
+
+                Rectangle {
+                    id: rectEditMessageBox
+                    anchors {
+                        left: webCameraButton.right
+                        right: rectEmoji.left
+                        top: parent.top
+                        bottom: parent.bottom
+                        margins: 10
+                        leftMargin: 0
+                        rightMargin: 0
+                    }
+
+                    MouseArea {
+                        anchors.fill: editMessageBox
+                        hoverEnabled: true
+                        cursorShape: "IBeamCursor"
+
+                        onClicked: editMessageBox.forceActiveFocus()
+                    }
+
+                    TextPlain {
+                        id: editMessageBox
+                        anchors.fill: parent
+                        font.family: "Open Sans"
+                        font.pointSize: 9.5
+                        placeholderText: " Write a message..."
+                        z:1
+
+                        onTextChanged: (editMessageBox.implicitHeight+15 < 45) ? rectMessageBox.height = 46 : (editMessageBox.implicitHeight+15 < 250) ? rectMessageBox.height = editMessageBox.implicitHeight+15 : 250
+
+                        Keys.onReturnPressed: {
+                            rectMessageBox.sendMessage();
+                        }
+                    }
+                }
             }
-            color: "transparent"
-            clip: true
+
+            EmojiPicker {
+                id: emojiPicker
+                anchors {
+                    right: parent.right
+                    bottom: rectMessageBox.top
+                    bottomMargin: 10
+                    rightMargin: 10
+                }
+                textPlain: editMessageBox
+            }
 
             ListModel {
                 id: listModelMessages
@@ -638,16 +654,20 @@ ApplicationWindow {
 
             Flickable {
                 id: flickListMessages
-                anchors.fill: parent
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: rectProfileTitle.bottom
+                    bottom: rectMessageBox.top
+                }
                 contentWidth: columnListMessages.implicitWidth
                 contentHeight: columnListMessages.implicitHeight
                 clip: true
                 z:0
 
-                property real maxContentY: (listViewMessages.count!=0) ? ((flickListMessages.contentHeight - flickListMessages.height) +
-                                                                          listMessagesFooter.implicitHeight) - 20 : 0
+                property real maxContentY: (listViewMessages.count!=0) ? (flickListMessages.contentHeight - flickListMessages.height)  : 0
 
-                contentY: (scrollViewMessages.contentY < flickListMessages.maxContentY) ? maxContentY : scrollViewMessages.contentY
+                contentY: scrollViewMessages.contentY
 
                 states: State {
                     name: "ShowBars"
@@ -695,32 +715,26 @@ ApplicationWindow {
 
             MScrollBar {
                 id: scrollViewMessages
-                width: 7;
-                height: flickListMessages.height-12
-                anchors.right: flickListMessages.right
+                anchors {
+                    right: parent.right
+                    top: rectProfileTitle.bottom
+                    bottom: rectMessageBox.top
+                    margins: 5
+                }
+                width: 7
                 flickableItem: flickListMessages
                 anchors.rightMargin: 2
                 bgColor: "lightblue"
                 bgOpacity: 0.3
-                handleOpacity: 0.7
+                handleOpacity: 1
                 opacity: 0
                 orientation: Qt.Vertical
                 position: flickListMessages.visibleArea.yPosition
                 pageSize: flickListMessages.visibleArea.heightRatio
                 clip: true
+                contentY: (flickListMessages.contentHeight > rectMessagePage.height) ? flickListMessages.maxContentY : 0
                 visible: (flickListMessages.contentHeight > rectMessagePage.height) ? true : false
             }
-        }
-
-        EmojiPicker {
-            id: emojiPicker
-            anchors {
-                right: parent.right
-                bottom: rectMessageBox.top
-                bottomMargin: 10
-                rightMargin: 10
-            }
-            textPlain: editMessageBox
         }
     }
 

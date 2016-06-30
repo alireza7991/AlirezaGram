@@ -49,10 +49,12 @@ Item {
         cursorShape: "PointingHandCursor"
         onEntered: {
             icon.color = root.hightlightColor
+            btn.color = "#eaeaea"
             root.entered()
         }
         onExited: {
             icon.color = root.color
+            btn.color = root.bgColor
             root.exited()
         }
         onPressed: icon.scale = 0.9

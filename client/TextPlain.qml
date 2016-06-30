@@ -23,7 +23,7 @@ TextEdit {
     renderType: Text.QtRendering
     textFormat: TextEdit.AutoText
 
-    onTextChanged: if(getText(0,1) == "")
+    onTextChanged: if(getText(0,1) === "")
                        txtPlaceHolder.visible = true
                    else
                        txtPlaceHolder.visible = false

@@ -47,7 +47,7 @@ Item {
         hoverEnabled: true
         cursorShape: "PointingHandCursor"
         onEntered: {
-            root.bgColor = "#f0f0f0"
+            root.bgColor = "#eaeaea"
         }
         onExited: {
             root.bgColor = "#ffffff"
