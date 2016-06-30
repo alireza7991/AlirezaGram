@@ -4,6 +4,8 @@
 #include <QQmlContext>
 #include <QLocale>
 #include <QString>
+#include <AlirezaSocket.h>
+#include <opencvQtWrapper.h>
 
 int main(int argc, char *argv[])
 {
