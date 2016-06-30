@@ -56,8 +56,8 @@ vector<MsgEntry> MessageManager::getUserMsgs(const char *username) {
 
 void MessageManager::addMsg(const char *sender,const char *reciever,const char *content) {
     MsgEntry m;
-    m.sender=sender;
-    m.reciever=reciever;
+    m.sender=strdup(sender);
+    m.reciever=strdup(reciever);
     m.time=time(0);
     m.content=strdup(content);
     msgs.push_back(m);
@@ -75,7 +75,7 @@ public:
     vector<UserEntry> getUserList() {
         return this->users;
     }
-
+    void debug();
 
 
 protected:
@@ -146,9 +146,10 @@ const char *UserManager::newSID(const char *user) {
 // TODO: check if username is not registered before
 
 bool UserManager::signup(const char *user,const char *passwd) {
+    cout << "sg " << user<<" p  " << passwd << endl;
     UserEntry e;
-    e.user = user;
-    e.passwd = passwd;
+    e.user = strdup(user);
+    e.passwd = strdup(passwd);
     users.push_back(e);
     return true;
 }
@@ -160,6 +161,12 @@ bool UserManager::checkUser(const char *user) {
     return false;
 }
 
+void UserManager::debug() {
+    cout << "DEBUG =====" << endl;
+    for(UserEntry e : users) {
+        cout << "name: "<<e.user << " pass:" << e.passwd << endl;
+    }
+}
 
 class Server : public AlirezaSocket {
 
@@ -285,6 +292,9 @@ public:
                 out += ":";
             }
             sendString(c,out);
+        }
+        else if(command[0]=='d') {
+            manager.debug();
         } // else !
         else {
             string out = "esyntax";
