@@ -46,7 +46,7 @@ Item {
             clip:true
             cursorVisible: false
             readOnly: true
-            selectByMouse: true
+            selectByMouse: !sticker
             selectionColor: "#569bdb"
             text: root.pmText
             textFormat: TextEdit.RichText

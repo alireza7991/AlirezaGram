@@ -245,7 +245,7 @@ Item {
                 width: txtLogin.implicitWidth
                 placeholderText: "Enter username"
                 validator: RegExpValidator {
-                    regExp: /[0-9a-zA-Z]*(\.)?[0-9a-zA-Z]*(\_)?[0-9a-zA-Z]*/
+                    regExp: /(\.)?[0-9a-zA-Z]*(\.)?[0-9a-zA-Z]*(\_)?[0-9a-zA-Z]*/
                 }
                 maximumLength: 9
 

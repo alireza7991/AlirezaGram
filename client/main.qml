@@ -73,11 +73,6 @@ ApplicationWindow {
                 caption: "Settings"
             }
             TButton {
-                id: tbtnCantacts
-                height: parent.height
-                caption: "Contacts"
-            }
-            TButton {
                 id: tbtnAbout
                 height: parent.height
                 caption: "About"
