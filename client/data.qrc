@@ -7,5 +7,35 @@
         <file>images/blurred.jpg</file>
         <file>images/iconbig256.png</file>
         <file>fonts/emoticons.ttf</file>
+        <file>stickers/Adore.png</file>
+        <file>stickers/Cool.png</file>
+        <file>stickers/Cry.png</file>
+        <file>stickers/Furious.png</file>
+        <file>stickers/Laugh.png</file>
+        <file>stickers/Ninja.png</file>
+        <file>stickers/Pudently.png</file>
+        <file>stickers/Smiley 1.png</file>
+        <file>stickers/Smiley 11.png</file>
+        <file>stickers/Smiley 12.png</file>
+        <file>stickers/Smiley 13.png</file>
+        <file>stickers/Smiley 14.png</file>
+        <file>stickers/Smiley 17.png</file>
+        <file>stickers/Smiley 18.png</file>
+        <file>stickers/Smiley 19.png</file>
+        <file>stickers/Smiley 2.png</file>
+        <file>stickers/Smiley 20.png</file>
+        <file>stickers/Smiley 21.png</file>
+        <file>stickers/Smiley 22.png</file>
+        <file>stickers/Smiley 23.png</file>
+        <file>stickers/Smiley 25.png</file>
+        <file>stickers/Smiley 27.png</file>
+        <file>stickers/Smiley 3.png</file>
+        <file>stickers/Smiley 4.png</file>
+        <file>stickers/Smiley 7.png</file>
+        <file>stickers/Smiley 8.png</file>
+        <file>stickers/Smiley 9.png</file>
+        <file>stickers/Study.png</file>
+        <file>stickers/SweetAngel.png</file>
+        <file>stickers/ThumbsUp.png</file>
     </qresource>
 </RCC>

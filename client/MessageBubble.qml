@@ -2,16 +2,17 @@ import QtQuick 2.0
 
 Item {
     id: root
-    width: (maxWidth > appWindow.width/3) ? appWindow.width/3 : maxWidth
-    height: txtMessageBubble.implicitHeight + 15
+    width: (sticker) ? maxWidth : (maxWidth > appWindow.width/3) ? appWindow.width/3 : maxWidth
+    height: (sticker) ? txtMessageBubble.implicitHeight + 50 : txtMessageBubble.implicitHeight + 15
 
     property string pmText: ""
     property color selfColor:  "#d3edff"
     property color otherColor: "#ffffff"
     property bool self: true
-    property color bgColor: root.self ? root.selfColor : root.otherColor
-    property int maxWidth: txtMessageBubble.implicitWidth + 20
+    property color bgColor: root.sticker ? "transparent" : root.self ? root.selfColor : root.otherColor
+    property int maxWidth: txtMessageBubble.implicitWidth + 30
     property string pmTime: Qt.formatDateTime(new Date(), "hh:mm")
+    property bool sticker: false
 
     Rectangle {
         id: rectMessageBubble
@@ -50,43 +51,6 @@ Item {
             text: root.pmText
             textFormat: TextEdit.RichText
             z:1
-        }
-
-        Rectangle {
-            id: rectTime_Check
-            anchors {
-                left: if(!root.self) parent.right
-                right: if(root.self) parent.left
-                top: parent.top
-                bottom: parent.bottom
-            }
-            width: rowState.implicitWidth+10
-            height: txtMessageTime.implicitHeight
-            color: root.bgColor
-            radius: 5
-            visible: false
-            Row {
-                id: rowState
-                anchors.fill: parent
-                anchors.leftMargin: 5
-                spacing: 5
-                Text {
-                    id: txtMessageTime
-                    color: root.self ? "#2f7fFf" : "#a0a0a0"
-                    font.family: "Open Sans"
-                    font.pointSize: 9
-                    text: root.pmTime
-                }
-
-                Text {
-                    id: iconCheck
-                    font.pointSize: 14
-                    font.family: "Material-Design-Iconic-Font"
-                    color: txtMessageTime.color
-                    text: mi_check
-                    visible: root.self ? true : false
-                }
-            }
         }
     }
 }

@@ -1,5 +1,4 @@
 import QtQuick 2.7
-import Qt.labs.folderlistmodel 2.1
 
 Item {
     id: root
@@ -9,13 +8,6 @@ Item {
 
     property bool hovered: false
     property variant textPlain
-
-    FolderListModel {
-        id: folderModel
-        nameFilters: ['*.svg']
-        sortField: FolderListModel.Name
-        folder: "emojis/"
-    }
 
     ListModel {
         id: emojiListModel

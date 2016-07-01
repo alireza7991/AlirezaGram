@@ -463,11 +463,19 @@ ApplicationWindow {
 
                 property real maxHeight: 200
 
-                function sendMessage() {
+                function sendSticker(sticker, self) {
+                    listModelMessages.insert(listViewMessages.count,{text:sticker, isSelf: self, time: Qt.formatDateTime(new Date(), "hh:mm"), isSticker: true})
+                    if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
+                    if (scrollViewMessages.contentY < flickListMessages.maxContentY){
+                        scrollViewMessages.contentY = flickListMessages.maxContentY
+                    }
+                }
+
+                function sendMessage(text, self, isSticker) {
                     while(editMessageBox.getText(0,1)===" " || editMessageBox.getText(0,1)==="	")
                         editMessageBox.remove(0,1)
                     if(!editMessageBox.isEmpty) {
-                        listModelMessages.insert(listViewMessages.count,{text:editMessageBox.text, anchor:"Right", time: Qt.formatDateTime(new Date(), "hh:mm")})
+                        listModelMessages.insert(listViewMessages.count,{text:text, isSelf: self, time: Qt.formatDateTime(new Date(), "hh:mm"), isSticker: isSticker})
                         editMessageBox.text = ""
                         if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
                         if (scrollViewMessages.contentY < flickListMessages.maxContentY){
@@ -510,7 +518,7 @@ ApplicationWindow {
                     itemFocus: editMessageBox
 
                     onClicked: {
-                        rectMessageBox.sendMessage();
+                        rectMessageBox.sendMessage(editMessageBox.text, true, false);
                     }
                 }
 
@@ -522,6 +530,16 @@ ApplicationWindow {
                     }
                     height: 45
                     width: 40
+
+                    onEntered: {
+                        if(emojiPicker.visible) emojiPicker.visible = false
+                        stickerPicker.visible = true
+                        stickerPicker.hovered = true
+                    }
+
+                    onExited: {
+                        stickerPicker.hovered = false
+                    }
                 }
 
                 Rectangle {
@@ -605,7 +623,7 @@ ApplicationWindow {
                         onTextChanged: (editMessageBox.implicitHeight+15 < 45) ? rectMessageBox.height = 46 : (editMessageBox.implicitHeight+15 < 250) ? rectMessageBox.height = editMessageBox.implicitHeight+15 : 250
 
                         Keys.onReturnPressed: {
-                            rectMessageBox.sendMessage();
+                            rectMessageBox.sendMessage(editMessageBox.text, true, false);
                         }
                     }
                 }
@@ -623,39 +641,51 @@ ApplicationWindow {
                 z:1
             }
 
+            StickerPicker {
+                id: stickerPicker
+                anchors {
+                    right: parent.right
+                    bottom: rectMessageBox.top
+                    bottomMargin: 10
+                    rightMargin: 10
+                }
+                sendTo: rectMessageBox
+                z:1
+            }
+
             ListModel {
                 id: listModelMessages
 
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
-                ListElement { text: "Test Message Bubble "; isSelf: true }
-                ListElement { text: "Test Message Bubble "; isSelf: false }
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
+                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
             }
 
             Flickable {
@@ -706,6 +736,7 @@ ApplicationWindow {
                                 bottomMargin: 10
                             }
                             self: isSelf
+                            sticker: isSticker
                             pmText: text
                         }
                     }
@@ -752,7 +783,7 @@ ApplicationWindow {
         z:1
 
         Behavior on opacity {
-            NumberAnimation { duration: 100 }
+            NumberAnimation { duration: 150 }
         }
     }
 
@@ -812,7 +843,7 @@ ApplicationWindow {
         }
 
         Behavior on opacity {
-            NumberAnimation { duration: 100 }
+            NumberAnimation { duration: 150 }
         }
     }
 
