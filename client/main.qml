@@ -32,7 +32,6 @@ ApplicationWindow {
 
     onVisibilityChanged: appWindowButtons.max_min = (appWindow.visibility==4) ? mi_restore : mi_maximize
 
-
     Rectangle {
         id: rectTitle
         anchors {
@@ -84,7 +83,8 @@ ApplicationWindow {
                 caption: "About"
 
                 onClicked: {
-                    stkViewMain.push(pageSettings)
+                    rectFocus.itemFocus = rectAbout
+                    rectFocus.show()
                 }
             }
         }
@@ -566,6 +566,7 @@ ApplicationWindow {
                             hoverEnabled: true
 
                             onEntered:{
+                                if(stickerPicker.visible) stickerPicker.visible = false
                                 emojiPicker.visible = true
                                 emojiPicker.hovered = true
                             }
@@ -587,8 +588,8 @@ ApplicationWindow {
                     width: 40
 
                     onClicked: {
-                        rectVideoChat.show()
-                        pageMain.enabled = false
+                        rectFocus.itemFocus = rectVideoChat
+                        rectFocus.show()
                     }
                 }
 
@@ -775,41 +776,181 @@ ApplicationWindow {
     }
 
     Rectangle {
-        id: rectFade
+        id: rectFocus
         anchors.fill: parent
         color: "#000000"
         opacity: 0
-        visible: false
+        visible: opacity > 0
         z:1
+
+        property variant itemFocus
+
+        function show(){
+            rectFocus.opacity = 0.5
+            itemFocus.opacity = 1
+        }
+
+        function close(){
+            itemFocus.opacity = 0
+            rectFocus.opacity = 0
+        }
 
         Behavior on opacity {
             NumberAnimation { duration: 150 }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: {
+                rectFocus.close()
+            }
+        }
+    }
+
+    Rectangle {
+        id: rectAbout
+        anchors.centerIn: parent
+        width: 400
+        height: 300
+        visible: opacity > 0
+        opacity: 0
+        color: "#ffffff"
+        radius: 5
+        z:1
+
+        Text {
+            id: txtAppName
+            anchors {
+                left: parent.left
+                top: parent.top
+                margins: 30
+            }
+            font.family: "Open Sans"
+            font.pointSize: 11
+            font.weight: Font.DemiBold
+            text: "AlirezaGarm Desktop"
+        }
+
+        Text {
+            id: txtAppVersion
+            anchors {
+                left: txtAppName.left
+                top: txtAppName.bottom
+                topMargin: 5
+            }
+            color: "#a0a0a0"
+            font.family: "Open Sans"
+            font.pointSize: 9.5
+            text: "version 0.10.0.0"
+        }
+
+        Text {
+            id: txtAppInfo
+            anchors {
+                left: txtAppName.left
+                top: txtAppVersion.bottom
+                right: parent.right
+                rightMargin: 30
+                topMargin: 20
+            }
+            font.family: "Open Sans"
+            font.pointSize: 9.5
+            lineHeight: 1.3
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            text: "Official free messaging app based on AlirezaGram API for speed and security"
+        }
+
+        Text {
+            id: txtAppLicense
+            anchors {
+                left: txtAppName.left
+                top: txtAppInfo.bottom
+                right: parent.right
+                rightMargin: 30
+                topMargin: 20
+            }
+            font.family: "Open Sans"
+            font.pointSize: 9.5
+            lineHeight: 1.3
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            text: "This software is licensed under GNU GPL version 3.\n"+
+                  "Source code available on GitHub."
+        }
+
+        Text {
+            id: txtEnjoy
+            anchors {
+                left: txtAppName.left
+                top: txtAppLicense.bottom
+                topMargin: 20
+                rightMargin: 30
+            }
+            font.family: "Open Sans"
+            font.pointSize: 9.5
+            lineHeight: 1.3
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            text: "I hope you enjoy from AlirezaGram."
+        }
+
+        Rectangle {
+            id: btnAboutClose
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
+                margins: 20
+            }
+            width: txtClose.implicitWidth + 15
+            height: txtClose.implicitHeight + 15
+            color: "#ffffff"
+            radius: 3
+            z:1
+
+            Text {
+                id: txtClose
+                anchors.centerIn: parent
+                font.family: "Open Sans"
+                font.pointSize: 11
+                font.weight: Font.DemiBold
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                color: "#2196F3"
+                text: "CLOSE"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: "PointingHandCursor"
+
+                onEntered: {
+                    btnAboutClose.color = "#dfefff"
+                }
+                onExited: {
+                    btnAboutClose.color = "#ffffff"
+                }
+                onClicked: rectFocus.close()
+            }
+
+            Behavior on color {
+                ColorAnimation { duration: 100 }
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
         }
     }
 
     Rectangle {
         id: rectVideoChat
-        anchors.fill: rectFade
+        anchors.fill: rectFocus
         anchors.margins: 150
         color: "#000000"
         radius: 10
         opacity: 0
-        visible: false
-        z:1
-
-        function show(){
-            rectFade.visible = true
-            rectFade.opacity = 0.5
-            visible = true
-            opacity = 1
-        }
-
-        function close(){
-            opacity = 0
-            visible = false
-            rectFade.opacity = 0
-            rectFade.visible = false
-        }
+        visible: opacity > 0
+        z:10
 
         Text {
             id: iconClose
@@ -826,6 +967,7 @@ ApplicationWindow {
             font.family: "Material-Design-Iconic-Font"
             font.pointSize: 20
             text: mi_close
+            z:1
 
             MouseArea {
                 anchors.fill: parent
@@ -836,10 +978,13 @@ ApplicationWindow {
                 onPressed: parent.scale = 0.9
                 onReleased: parent.scale = 1
                 onClicked: {
-                    rectVideoChat.close()
-                    pageMain.enabled = true
+                    rectFocus.close()
                 }
             }
+        }
+
+        MouseArea {
+            anchors.fill: parent
         }
 
         Behavior on opacity {
