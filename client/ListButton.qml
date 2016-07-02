@@ -19,6 +19,7 @@ Item {
     property bool notifications: true
     property bool checked: false
     property bool self: false
+    property bool sticker: false
     property string senderName:  ""
 
     onCheckedChanged: {
@@ -26,7 +27,7 @@ Item {
             txtSender.color = "#2196F3"
             rectNotifications.color = "#2196F3"
             txtNotifications.color = "#ffffff"
-            txtLast.color = "#a0a0a0"
+            txtLast.color = "#444444"
             txtCaption.color = "#000000"
             txtTime.color = "#a0a0a0"
             btn.color = root.bgColor
@@ -105,7 +106,7 @@ Item {
             }
             color: "#2196F3"
             font.family: "Open Sans"
-            font.pointSize: 9
+            font.pointSize: 9.5
             verticalAlignment: Text.AlignVCenter
             text: root.self ? txtMSender.elidedText : ""
         }
@@ -126,11 +127,12 @@ Item {
                 topMargin: 25
                 rightMargin: 5
             }
+            color: "#444444"
             text: txtMLast.elidedText
             font.pointSize: 9
-            color: "#808080"
             font.family: "Open Sans"
             verticalAlignment: Text.AlignVCenter
+            textFormat: Text.RichText
             clip:true
         }
 
@@ -183,7 +185,7 @@ Item {
         onExited: {
             if(!root.checked) {
                 txtSender.color = "#2196F3"
-                txtLast.color = "#a0a0a0"
+                txtLast.color = "#444444"
                 txtCaption.color = "#000000"
                 txtTime.color = "#a0a0a0"
                 btn.color = root.bgColor
@@ -199,6 +201,7 @@ Item {
             txtNotifications.color = "#2196F3"
             btn.color = root.downColor
         }
+        onClicked: root.clicked()
     }
 }
 

@@ -158,6 +158,7 @@ Item {
                 Repeater {
                     id: emojis
                     model: emojiListModel
+                    visible: false
 
                     Rectangle {
                         width: 50

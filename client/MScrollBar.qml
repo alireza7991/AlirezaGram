@@ -16,10 +16,28 @@ Item {
     property real contentX: 0
     property real pageSize
     property int orientation : Qt.Vertical
-    property variant flickableItem
+    property Flickable flickableItem
     property color bgColor: "#000000"
     property real bgOpacity: 0.2
     property real handleOpacity: 0.3
+
+    onContentYChanged: {
+        if(!pressed){
+            if(scrollBar.contentY < 0)
+                scrollBar.contentY = 0
+            if(scrollBar.contentY > (flickableItem.contentHeight - flickableItem.height))
+                scrollBar.contentY = (flickableItem.contentHeight - flickableItem.height)
+        }
+    }
+
+    onContentXChanged: {
+        if(!pressed){
+            if(scrollBar.contentX < 0)
+                scrollBar.contentX = 0
+            if(scrollBar.X > (flickableItem.contentWidth - flickableItem.width))
+                scrollBar.contentX = (flickableItem.contentWidth - flickableItem.width)
+        }
+    }
 
     // A light, semi-transparent background
     Rectangle {
@@ -75,11 +93,11 @@ Item {
             }
             if(scrollBar.contentX < 0)
                 scrollBar.contentX = 0
-            else if(scrollBar.X > (flickableItem.contentWidth - flickableItem.width))
+            if(scrollBar.X > (flickableItem.contentWidth - flickableItem.width))
                 scrollBar.contentX = (flickableItem.contentWidth - flickableItem.width)
             if(scrollBar.contentY < 0)
                 scrollBar.contentY = 0
-            else if(scrollBar.contentY > (flickableItem.contentHeight - flickableItem.height))
+            if(scrollBar.contentY > (flickableItem.contentHeight - flickableItem.height))
                 scrollBar.contentY = (flickableItem.contentHeight - flickableItem.height)
             scrollBar.pressed = false
         }

@@ -288,63 +288,117 @@ ApplicationWindow {
                     ListModel {
                         id: listModelChatList
 
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: true }
-                        ListElement { title: "Test Chat List Button "; text: "Test Chat List Button "; isSelf: false}
+                        ListElement {
+                            title: "[M]ohammad [R]eza"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[A]lireza"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[K]ambiz"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[B]ehnam"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[H]adi"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[A]li"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[H]ossein"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[H]amed"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[A]mir"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
+                        ListElement {
+                            title: "[M]ehdi"
+                            text: ""
+                            listMessages: []
+                            isSelf: false
+                            lastPmTime: "00:00"
+                        }
                     }
+
+                    property ListModel listModelMessages: ListModel{}
 
                     Column {
                         id: columnListChat
                         anchors.fill: parent
+
+                        property int index: 0
 
                         Repeater {
                             id: listViewChatList
                             model: listModelChatList
                             delegate: ListButton {
                                 width: parent.width
-                                caption: title + index
-                                lastText: text + index
-                                lastTime: (listModelMessages.count) ? listViewMessages.itemAt(0).pmTime : "00:00"
+                                caption: title
+                                lastText: text
+                                lastTime: lastPmTime
                                 newMessage: index+1
                                 self: isSelf
                                 bgPicColor: Qt.rgba(Math.random(250),Math.random(250),Math.random(250))
 
                                 onPressed: {
                                     if(!rectList.checked){
+                                        rectList.listModelMessages = listMessages
+                                        txtProfileTitle.text = caption
+                                        columnListChat.index = index
                                         rectList.lastButton = this;
                                         rectList.checked = true;
                                         this.checked = true;
                                     } else {
+                                        rectList.listModelMessages = listMessages
+                                        txtProfileTitle.text = caption
+                                        columnListChat.index = index
                                         rectList.lastButton.checked = false;
                                         rectList.lastButton = this;
                                         this.checked = true;
                                     }
                                 }
+
+                                onClicked: flickListMessages.setContentY()
                             } // ListButton
                         } // Repeater
                     } // Column
@@ -380,6 +434,7 @@ ApplicationWindow {
             }
             color: "transparent"
             clip: true
+            visible: (rectList.checked) ? true : false
 
             Rectangle {
                 id: rectProfileTitle
@@ -390,7 +445,6 @@ ApplicationWindow {
                     leftMargin: 0.5
                 }
                 height: 54.5
-                visible: (listModelMessages.count) ? true : false
                 z:1
 
                 Rectangle {
@@ -453,29 +507,36 @@ ApplicationWindow {
                     leftMargin: 0.5
                 }
                 height: 46
-                visible: (listModelMessages.count) ? true : false
                 z:1
 
                 property real maxHeight: 200
 
                 function sendSticker(sticker, self) {
-                    listModelMessages.insert(listViewMessages.count,{text:sticker, isSelf: self, time: Qt.formatDateTime(new Date(), "hh:mm"), isSticker: true})
-                    if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
-                    if (scrollViewMessages.contentY < flickListMessages.maxContentY){
-                        scrollViewMessages.contentY = flickListMessages.maxContentY
+                    if(columnListChat.index > 0) {
+                        listModelChatList.move(columnListChat.index, 0, 1)
+                        columnListChat.index = 0
                     }
+                    rectList.listModelMessages.insert(listViewMessages.count,{text:sticker, isSelf: self, isSticker: true})
+                    listModelChatList.setProperty(0,"lastPmTime", Qt.formatDateTime(new Date(),"hh:mm"))
+                    listModelChatList.setProperty(0,"text", '<font color=blue>(Sticker)</font>')
+                    listModelChatList.setProperty(0,"isSelf", true)
+                    flickListMessages.setContentY()
                 }
 
                 function sendMessage(text, self, isSticker) {
                     while(editMessageBox.getText(0,1)===" " || editMessageBox.getText(0,1)==="	")
                         editMessageBox.remove(0,1)
                     if(!editMessageBox.isEmpty) {
-                        listModelMessages.insert(listViewMessages.count,{text:text, isSelf: self, time: Qt.formatDateTime(new Date(), "hh:mm"), isSticker: isSticker})
-                        editMessageBox.text = ""
-                        if(listModelChatList.count) listViewChatList.itemAt(0).lastTime = Qt.formatDateTime(new Date(), "hh:mm")
-                        if (scrollViewMessages.contentY < flickListMessages.maxContentY){
-                            scrollViewMessages.contentY = flickListMessages.maxContentY
+                        if(columnListChat.index > 0) {
+                            listModelChatList.move(columnListChat.index, 0, 1)
+                            columnListChat.index = 0
                         }
+                        rectList.listModelMessages.insert(listViewMessages.count,{text:text, isSelf: self, isSticker: isSticker})
+                        listModelChatList.setProperty(0,"lastPmTime", Qt.formatDateTime(new Date(),"hh:mm"))
+                        listModelChatList.setProperty(0,"text", editMessageBox.text)
+                        listModelChatList.setProperty(0,"isSelf", true)
+                        editMessageBox.text = ""
+                        flickListMessages.setContentY()
                     }
                 }
 
@@ -649,41 +710,6 @@ ApplicationWindow {
                 z:1
             }
 
-            ListModel {
-                id: listModelMessages
-
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: true ; isSticker: false}
-                ListElement { text: "Test Message Bubble "; isSelf: false; isSticker: false}
-            }
-
             Flickable {
                 id: flickListMessages
                 anchors {
@@ -696,7 +722,13 @@ ApplicationWindow {
                 contentHeight: columnListMessages.implicitHeight
                 clip: true
 
-                property real maxContentY: (listViewMessages.count!=0) ? (flickListMessages.contentHeight - flickListMessages.height)  : 0
+                function setContentY(){
+                    if (scrollViewMessages.contentY < flickListMessages.maxContentY){
+                        scrollViewMessages.contentY = flickListMessages.maxContentY
+                    }
+                }
+
+                property real maxContentY: (listViewMessages.count!=0) ? ((flickListMessages.contentHeight - flickListMessages.height) + (listViewMessages.itemAt(listViewMessages.count-1).height+listMessagesFooter.implicitHeight)) : 0
 
                 contentY: scrollViewMessages.contentY
 
@@ -723,7 +755,7 @@ ApplicationWindow {
                     Repeater {
                         id: listViewMessages
                         width: rectMessagePage.width
-                        model: listModelMessages
+                        model: rectList.listModelMessages
                         delegate: MessageBubble {
                             anchors {
                                 left: if(!isSelf) listViewMessages.left
@@ -764,7 +796,7 @@ ApplicationWindow {
                 position: flickListMessages.visibleArea.yPosition
                 pageSize: flickListMessages.visibleArea.heightRatio
                 clip: true
-                contentY: (flickListMessages.contentHeight > rectMessagePage.height) ? flickListMessages.maxContentY : 0
+                contentY: (flickListMessages.contentHeight > rectMessagePage.height) ? flickListMessages.maxContentY: 0
                 visible: (flickListMessages.contentHeight > rectMessagePage.height) ? true : false
             }
         }
@@ -976,6 +1008,10 @@ ApplicationWindow {
                     rectFocus.close()
                 }
             }
+
+           Behavior on opacity {
+               NumberAnimation { duration: 100 }
+           }
         }
 
         MouseArea {

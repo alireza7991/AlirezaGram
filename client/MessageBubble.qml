@@ -40,7 +40,7 @@ Item {
             anchors.rightMargin: 10
             anchors.leftMargin: 10
             font.family: "Open Sans"
-            font.pointSize: 9.5
+            font.pointSize: 10
             verticalAlignment: Text.AlignVCenter
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
             clip:true
