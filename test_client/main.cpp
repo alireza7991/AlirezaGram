@@ -7,24 +7,26 @@ class client : public AlirezaSocket {
 
     void onConnect(SOCKET c) {
         cout << "connected" << endl;
-        while(true) {
+
             string s;
             getline(cin,s);
             sendString(c,s);
             cout << recieveString(c) << endl;
-        }
+            closesocket(c);
     }
 };
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    try {
-        client c;
-        c.Connect((char *)"127.0.0.1",7991);
-    } catch(runtime_error e) {
-        cout << e.what() << endl;
+    while(1)
+    {
+        try {
+            client c;
+            c.Connect((char *)"127.0.0.1",7991);
+        } catch(runtime_error e) {
+           cout << e.what() << endl;
+        }
     }
-
     return a.exec();
 }

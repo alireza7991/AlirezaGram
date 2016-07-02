@@ -86,6 +86,7 @@ protected:
 
 
 char *UserManager::genRandomSid() {
+    srand(time(0));
     char *s = new char[SID_LEN];
     static const char alphanum[] =
         "0123456789"
@@ -164,8 +165,12 @@ bool UserManager::checkUser(const char *user) {
 void UserManager::debug() {
     cout << "DEBUG =====" << endl;
     for(UserEntry e : users) {
-        cout << "name: "<<e.user << " pass:" << e.passwd << endl;
+        cout << "name: "<<e.user << " pass:" << e.passwd  << endl;
     }
+    for(SIDEntry e : sids) {
+        cout << "name: "<<e.user << " sid:" << e.sid << endl;
+    }
+
 }
 
 class Server : public AlirezaSocket {
