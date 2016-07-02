@@ -35,20 +35,17 @@ class MessageManager {
 public:
     vector<MsgEntry> getUserMsgs(const char *username);
     void addMsg(const char *sender,const char *reciever,const char *content);
+    void debug();
 private:
     vector<MsgEntry> msgs;
 };
 
 vector<MsgEntry> MessageManager::getUserMsgs(const char *username) {
     vector<MsgEntry> m;
-    for(vector<MsgEntry>::iterator i = msgs.begin(); i!=msgs.end();) {
-        MsgEntry mi = *i;
-        if(mi.reciever==username) {
-            m.push_back(mi);
-            msgs.erase(i);
-        }
-        else {
-            ++i;
+    for(int i=0; i<msgs.size();i++) {
+        if(!strcmp(username,msgs[i].reciever)) {
+            m.push_back(msgs[i]);
+            msgs[i].reciever="GARBAGE&&&&&&";
         }
     }
     return m;
@@ -61,6 +58,14 @@ void MessageManager::addMsg(const char *sender,const char *reciever,const char *
     m.time=time(0);
     m.content=strdup(content);
     msgs.push_back(m);
+}
+
+
+void MessageManager::debug() {
+
+    for(MsgEntry e : msgs) {
+        cout << "sender " << e.sender << " reciever " << e.reciever << " content " << e.content<<endl;
+    }
 }
 
 class UserManager {
@@ -137,7 +142,7 @@ const char *UserManager::getSIDUser(const char *sid) {
 
 const char *UserManager::newSID(const char *user) {
     SIDEntry t;
-    t.user=user;
+    t.user=strdup(user);
     t.time=time(0);
     t.sid=genRandomSid();
     sids.push_back(t);
@@ -170,6 +175,7 @@ void UserManager::debug() {
     for(SIDEntry e : sids) {
         cout << "name: "<<e.user << " sid:" << e.sid << endl;
     }
+
 
 }
 
@@ -252,7 +258,7 @@ public:
                 return;
             }
             unsigned ul = command.find(':',0);
-            string reciever = command.substr(6,ul);
+            string reciever = command.substr(6,ul-6);
             string content = command.substr(ul+1,string::npos);
             string sender = manager.getSIDUser(sid.c_str());
             cout << "recieved a message from " << sender << " to " << reciever << " content " << content << endl;
@@ -300,6 +306,7 @@ public:
         }
         else if(command[0]=='d') {
             manager.debug();
+            msgmanager.debug();
         } // else !
         else {
             string out = "esyntax";
