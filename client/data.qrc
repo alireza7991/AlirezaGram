@@ -37,5 +37,6 @@
         <file>stickers/Study.png</file>
         <file>stickers/SweetAngel.png</file>
         <file>stickers/ThumbsUp.png</file>
+        <file>images/logo.svg</file>
     </qresource>
 </RCC>

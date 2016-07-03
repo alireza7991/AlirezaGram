@@ -13,6 +13,7 @@
 #include <iostream>
 #include <AlirezaSocket.h>
 #include <opencvQtWrapper.h>
+#include <QTimer>
 
 #define SERVER_IP (char *)"127.0.0.1"
 #define SERVER_PORT 7991
@@ -261,6 +262,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mi_send", u8"\uf1a1");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    qDebug() << "hi";
+
 
     return app.exec();
 }

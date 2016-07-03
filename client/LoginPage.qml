@@ -19,11 +19,11 @@ Item {
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 top: parent.top
-                margins: 10
+                margins: 40
             }
-            height: 250
+            height: 500
             width: height
-            source: "qrc:/images/iconbig256.png"
+            source: "qrc:/images/logo.svg"
         }
 
         StackView {
@@ -32,7 +32,7 @@ Item {
                 horizontalCenter: parent.horizontalCenter
                 top: imgLogo.bottom
                 margins: 20
-                topMargin: 30
+                topMargin: 50
             }
             initialItem: pageSingin
             width: root.width
@@ -71,9 +71,9 @@ Item {
                     right: parent.right
                     verticalCenter: parent.verticalCenter
                 }
-                text: "Please login to your account"
+                text: "Enter your account"
                 font.family: "Open Sans"
-                font.pointSize: 12
+                font.pointSize: 15
                 font.weight: Font.DemiBold
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -82,12 +82,12 @@ Item {
                 id: editUsername
                 anchors {
                     top: txtLogin.bottom
-                    topMargin: 20
+                    topMargin: 30
                     horizontalCenter: parent.horizontalCenter
                 }
                 height: 40
-                width: txtLogin.implicitWidth
-                placeholderText: "Enter username"
+                width: parent.width*0.2
+                placeholderText: "username"
                 validator: RegExpValidator {
                     regExp: /(\.)?[0-9a-zA-Z]*(\.)?[0-9a-zA-Z]*(\_)?[0-9a-zA-Z]*/
                 }
@@ -127,7 +127,7 @@ Item {
                     topMargin: 10
                 }
                 height: 40
-                placeholderText: "Enter password"
+                placeholderText: "password"
                 echoMode: TextInput.Password
                 maximumLength: 9
                 style: TextFieldStyle {
@@ -159,13 +159,13 @@ Item {
                 id: btnSignin
                 anchors {
                     top: editPassword.bottom
-                    topMargin: 10
+                    topMargin: 25
                     horizontalCenter: parent.horizontalCenter
                 }
-                height: 35
+                height: 40
                 bgColor: hlColor
                 color: "#ffffff"
-                text: "Sgin in"
+                text: "Sign in"
                 fontSize: 11
 
                 onClicked: stkViewMain.push(pageMain)
@@ -182,7 +182,7 @@ Item {
                     anchors.centerIn: parent
 
                     Text {
-                        text: "Don't you have an account? Click "
+                        text: "Don't have an account? Click "
                         font.family: "Open Sans"
                         font.pointSize: 12
                         verticalAlignment: Text.AlignVCenter
@@ -206,7 +206,7 @@ Item {
                     }
 
                     TextLink {
-                        text: "Sign up"
+                        text: "sign up"
                         fontName: "Open Sans"
                         fontSize: 12
 
@@ -432,7 +432,7 @@ Item {
                 height: 35
                 bgColor: hlColor
                 color: "#ffffff"
-                text: "Sgin up"
+                text: "Sign In"
                 fontSize: 11
 
                 onClicked: {
