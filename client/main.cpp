@@ -10,13 +10,22 @@
 #include <QPixmap>
 #include <QString>
 #include <string>
+#include <QObject>
+#include <QString>
 #include <iostream>
 #include <AlirezaSocket.h>
 #include <opencvQtWrapper.h>
 #include <QTimer>
+#include <check.h>
 
 #define SERVER_IP (char *)"127.0.0.1"
 #define SERVER_PORT 7991
+
+
+
+
+
+string _sid;
 
 struct msg {
     string sender;
@@ -37,9 +46,10 @@ public:
         cout << "command: " << out << endl;
         sendString(c,out);
         string res=recieveString(c);
-        if(res=="lf") {
+        if(res.substr(0,2)!="lo") {
             result = false;
             closesocket(c);
+            return;
         }
         sid = res.substr(2,string::npos);
         result = true;
@@ -61,6 +71,7 @@ public:
         if(res=="esid") {
             result = false;
             closesocket(c);
+            return;
         }
         res += ':';
         int lastPosition = 0;
@@ -94,6 +105,7 @@ public:
         if(res=="sf") {
             result = false;
             closesocket(c);
+            return;
         }
         sid = res.substr(2,string::npos);
         result = true;
@@ -118,6 +130,7 @@ public:
             cout << "send message failed with " << res << endl;
             result = false;
             closesocket(c);
+            return;
         }
         result = true;
         closesocket(c);
@@ -139,6 +152,7 @@ public:
             cout << "read messages failed with " << res << endl;
             result = false;
             closesocket(c);
+            return;
         }
         int n = stoi(res.substr(2,string::npos));
         cout << "unread messages " << n << endl;
@@ -227,6 +241,28 @@ bool Asendmsg(string sid,string reciever,string content) {
     }
 }
 
+Check::Check(QObject *parent) : QObject(parent) {
+
+}
+
+bool Check::login(QString uname, QString upass){
+    return Alogin(uname.toStdString(),upass.toStdString(),_sid);
+}
+
+
+bool Check::signup(QString uname,QString upass) {
+     return Asignup(uname.toStdString(),upass.toStdString(),_sid);
+}
+
+
+
+
+
+
+
+
+
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -238,7 +274,7 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont(":/fonts/emoticons.ttf");
 
     QQmlApplicationEngine engine;
-
+    qmlRegisterType<Check>("AlirezaGram",1,0,"Check");
     engine.rootContext()->setContextProperty("mi_search", u8"\uf1c3");
     engine.rootContext()->setContextProperty("mi_account", u8"\uf203");
     engine.rootContext()->setContextProperty("mi_account_c", u8"\uf205");

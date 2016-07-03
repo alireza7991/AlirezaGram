@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick quickcontrols2
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    check.cpp
 
 RESOURCES += qml.qrc \
     data.qrc
@@ -25,3 +26,6 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    check.h

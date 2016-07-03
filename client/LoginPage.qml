@@ -1,8 +1,10 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
+import AlirezaGram 1.0
 
 Item {
+
     id: root
     visible: false
 
@@ -13,7 +15,7 @@ Item {
         id: rectLoginPage
         anchors.fill: parent
         color: "#ffffff"
-
+        Check { id: check }
         Image {
             id: imgLogo
             anchors {
@@ -168,7 +170,7 @@ Item {
                 text: "Sign in"
                 fontSize: 11
 
-                onClicked: stkViewMain.push(pageMain)
+                onClicked: if(check.login(editUsername.text, editPassword.text)) stkViewMain.push(pageMain)
             }
 
             Item {
@@ -437,7 +439,7 @@ Item {
 
                 onClicked: {
                     if(editName.length >= 4 && editPass.length >= 4 && editPass.text == editConfirmPass.text)
-                        stkViewMain.push(pageMain)
+                       if(check.signup(editName.text, editPass.text)) stkViewMain.push(pageMain)
                     else if (editName.length < 4) {
                         rectNotifName.color = "#ffb3b3"
                         editName.forceActiveFocus()

@@ -885,7 +885,7 @@ ApplicationWindow {
             font.pointSize: 9.5
             lineHeight: 1.3
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: "Official free messaging app based on AlirezaGram API for speed and security"
+            text: "AlirezaGram messanger by Alireza Forouzandeh Nezhad :)"
         }
 
         Text {
@@ -901,8 +901,7 @@ ApplicationWindow {
             font.pointSize: 9.5
             lineHeight: 1.3
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: "This software is licensed under GNU GPL version 3.\n"+
-                  "Source code available on GitHub."
+            text: "Source code is available on GitHub."
         }
 
         Text {
@@ -917,7 +916,7 @@ ApplicationWindow {
             font.pointSize: 9.5
             lineHeight: 1.3
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: "I hope you enjoy from AlirezaGram."
+            text: "Enjoy!"
         }
 
         Rectangle {

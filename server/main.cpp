@@ -184,7 +184,7 @@ class Server : public AlirezaSocket {
 public:
 
     Server() : AlirezaSocket() {
-        manager.signup("alireza","testpassw");
+        manager.signup("alireza","1234");
 
 
     }
