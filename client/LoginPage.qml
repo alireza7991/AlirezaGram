@@ -227,9 +227,9 @@ Item {
                     right: parent.right
                     verticalCenter: parent.verticalCenter
                 }
-                text: "Craete your AlirezaGram account"
+                text: "Create an AlirezaGram account"
                 font.family: "Open Sans"
-                font.pointSize: 12
+                font.pointSize: 15
                 font.weight: Font.DemiBold
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -242,8 +242,8 @@ Item {
                     horizontalCenter: parent.horizontalCenter
                 }
                 height: 40
-                width: txtLogin.implicitWidth
-                placeholderText: "Enter username"
+                width: parent.width*0.2
+                placeholderText: "username"
                 validator: RegExpValidator {
                     regExp: /(\.)?[0-9a-zA-Z]*(\.)?[0-9a-zA-Z]*(\_)?[0-9a-zA-Z]*/
                 }
@@ -293,7 +293,7 @@ Item {
                     anchors.fill: parent
                     anchors.margins: 5
                     text: "You can use ( . , _ ) characters in your username.\n"+
-                          "Please use between 4 and 11 characters."
+                          "username must be 4 to 11 characters."
                     font.family: "Open Sans"
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
@@ -308,7 +308,7 @@ Item {
                     topMargin: 10
                 }
                 height: 40
-                placeholderText: "Enter password"
+                placeholderText: "password"
                 echoMode: TextInput.Password
                 maximumLength: 9
                 style: TextFieldStyle {
@@ -355,7 +355,7 @@ Item {
                     anchors.fill: parent
                     anchors.margins: 5
                     text: "You can use any characters in your password.\n"+
-                          "Please use between 4 and 11 characters."
+                          "Password must be 4 to 9 characters."
                     font.family: "Open Sans"
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
@@ -370,7 +370,7 @@ Item {
                     topMargin: 10
                 }
                 height: 40
-                placeholderText: "Confirm your password"
+                placeholderText: "confrim password"
                 echoMode: TextInput.Password
                 maximumLength: 9
                 style: TextFieldStyle {
@@ -416,7 +416,7 @@ Item {
                     id: txtNotifConfirm
                     anchors.fill: parent
                     anchors.margins: 5
-                    text: "These passwords don't match."
+                    text: "passwords do not match!"
                     font.family: "Open Sans"
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
